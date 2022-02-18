@@ -7,6 +7,7 @@ http://172.21.200.26:8081/bank/home </br>
 - JavaSE 1.6
 - Oracle DBMS (ojdbc6.jar)
 - Spring MVC project
+- Tomcat 9.0
 
 
 ### 금융결제원 API

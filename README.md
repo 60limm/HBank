@@ -69,7 +69,7 @@ http://172.21.200.26:8081/bank/home </br>
 <hr>
 
 - 간략한 프로세스 설명 피피티
-[HBank.pptx](https://github.com/60limm/HBank/files/8094231/HBank.pptx)
+(우선 내림)
 
 
 이 외에도 한 땀 한 땀 신경쓴 사이트, 기능들이 많으나 여기에선 생략..
@@ -81,7 +81,13 @@ http://172.21.200.26:8081/bank/home </br>
 자료실에 있는 API 명세서를 꼭 꼼꼼히 살펴보는 것이 좋다.<br>
 개발과 동시에 API 연동을 하려면 시행착오가 많을 수 밖에 없다.<br>
 개발에 적용시키기 전에 API가 제대로 req, res 되는지 확인해볼 수 있는 사이트를 적극 활용했다. <br>
-링크 > https://www.postman.com/ 
+링크 > https://www.postman.com/ <br>
+<br>
+개인뱅킹에는 예금, 출금, 대출 등 상품도 다양하고 기능이 매우 많으니 <br>
+개인적으로 더 디벨롭시켜봐도 좋을 듯 <br>
+퇴근하고 여유가 있다면 ^_^..
 
+<hr>
+[Bank.zip](https://github.com/60limm/HBank/files/8094327/Bank.zip)
 
 

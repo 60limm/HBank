@@ -32,16 +32,38 @@ http://172.21.200.26:8081/bank/home </br>
 
 
 ### 화면
+
+- 참고사항
+사용자인증 및 계좌 등록을 거쳐 토큰을 발급받아야함 <br>
+토큰이 발급되면 개인정보 입력 후에 회원가입 > DB에 유저정보 저장 <br>
+모든 API 사용에는 토큰이 필수이기 때문에 세션에 같이 설정해줌
+
 - Main
 ![image](https://user-images.githubusercontent.com/90125028/154598590-aab9342d-e554-4f84-9f8e-6381c226b233.png)
 
 - Account
+: 사용자가 가진 계좌 리스트를 볼 수 있음
+잔액조회, 계좌변경, 계좌해지
 ![image](https://user-images.githubusercontent.com/90125028/154598776-745a972c-039d-44e2-95b6-f25ed7100111.png)
 
 - Transfer
 영상 > https://user-images.githubusercontent.com/90125028/154620899-702ceac9-fe0b-4189-962a-5238bea267f6.mp4
 
+- Transaction
+![image](https://user-images.githubusercontent.com/90125028/154621271-973b6fbb-b75d-4b18-8fdc-c5d38294d71f.png)
+
 - 간략한 프로세스 설명 피피티
 [HBank.pptx](https://github.com/60limm/HBank/files/8094231/HBank.pptx)
+
+
+이 외에도 한 땀 한 땀 신경쓴 사이트, 기능들이 많으나 여기에선 생략..
+
+### P.S
+처음 API를 시도해볼때는 정말 막막했다. 특히나 금융결제원 개발자사이트에서 정보를 친절하게 제공하고 있지 않았다. <br>
+자료실에 있는 API 명세서를 꼭 꼼꼼히 살펴보는 것이 좋다.<br>
+개발과 동시에 API 연동을 하려면 시행착오가 많을 수 밖에 없다.<br>
+개발에 적용시키기 전에 API가 제대로 req, res 되는지 확인해볼 수 있는 사이트를 적극 활용했다.
+링크 > https://www.postman.com/ 
+
 
 

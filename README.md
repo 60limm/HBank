@@ -40,5 +40,5 @@ http://172.21.200.26:8081/bank/home </br>
 
 - Transfer
 ![image](https://user-images.githubusercontent.com/90125028/154598905-8067db99-812b-4a08-baef-4072a36446d0.png)
-영상 > https://user-images.githubusercontent.com/90125028/154599484-3d7682a3-39d6-4dc8-a7ad-776b66f849a4.mp4
+영상 > 
 

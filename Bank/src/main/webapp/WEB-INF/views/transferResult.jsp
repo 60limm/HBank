@@ -85,8 +85,6 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
-          <li><a class="nav-link scrollto" href="#">카드</a></li>
-          <li><a class="nav-link scrollto" href="/bank/about">About</a></li>
           <li><a class="getstarted scrollto" href="#" onclick='FnLogoutClick()'>Log out</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -108,8 +106,6 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>
-          <li><a class="nav-link scrollto" href="#">카드</a></li>
-          <li><a class="nav-link scrollto" href="/bank/about">About</a></li>
           <li><a class="getstarted scrollto" href="/bank/inner">Log in</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

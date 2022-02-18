@@ -31,4 +31,14 @@ http://172.21.200.26:8081/bank/home </br>
 다양한 은행에서 사용하는 금융결제원 API를 본격적으로 사용하게 되는데 ... (더보기)
 
 
-### 간략한 화면
+### 화면
+- Main
+![image](https://user-images.githubusercontent.com/90125028/154598590-aab9342d-e554-4f84-9f8e-6381c226b233.png)
+
+- Account
+![image](https://user-images.githubusercontent.com/90125028/154598776-745a972c-039d-44e2-95b6-f25ed7100111.png)
+
+- Transfer
+![image](https://user-images.githubusercontent.com/90125028/154598905-8067db99-812b-4a08-baef-4072a36446d0.png)
+영상 > https://user-images.githubusercontent.com/90125028/154599484-3d7682a3-39d6-4dc8-a7ad-776b66f849a4.mp4
+

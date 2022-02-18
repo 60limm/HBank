@@ -39,6 +39,9 @@ http://172.21.200.26:8081/bank/home </br>
 ![image](https://user-images.githubusercontent.com/90125028/154598776-745a972c-039d-44e2-95b6-f25ed7100111.png)
 
 - Transfer
-![image](https://user-images.githubusercontent.com/90125028/154598905-8067db99-812b-4a08-baef-4072a36446d0.png)
-영상 > 
+영상 > https://user-images.githubusercontent.com/90125028/154620899-702ceac9-fe0b-4189-962a-5238bea267f6.mp4
+
+- 간략한 프로세스 설명 피피티
+[HBank.pptx](https://github.com/60limm/HBank/files/8094231/HBank.pptx)
+
 

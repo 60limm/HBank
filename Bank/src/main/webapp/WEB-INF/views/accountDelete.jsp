@@ -173,13 +173,17 @@
 			<select class="form-control" id="selectAccount" style="width: 280px;">
 				<option value="none">- 선택 - </option>
 				
-				<c:forEach var="i" begin="0" end="${fn:length(JsonAccountList)-1}">
-					<option id='${fn:replace(JsonAccountList.get(i).get('fintech_use_num'),'\"','')}'>
-						${fn:replace(JsonAccountList.get(i).get('bank_name'),'\"','')} ${fn:replace(JsonAccountList.get(i).get('account_num_masked'),'\"','')} 
+				<c:forEach var="i" begin="0" end="${fn:length(JsonList_final)-1}">
+					<option id='${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')}'>
+						${fn:replace(JsonList_final.get(i).get('bank_name'),'\"','')} ${fn:replace(JsonList_final.get(i).get('account_num_masked'),'\"','')} 
 					</option>
+					
 				</c:forEach> 
 			</select>
 			</td>
+				
+				
+				
 			<td><a id='deleteRequest' onclick='deleteRequest()' class="getstarted scrollto" href='#'>해지</a></td>
 			</tr>
 			<!-- 여기에 여유가 좀 있었으면 좋겠다 -->
@@ -194,7 +198,6 @@
 			        <div class="section-title title3">
 			          <hr><br>
 			          해지할 계좌를 선택하세요<br>
-			          (신중히..)
 			        </div>
 			      </div>
 			    </section>
@@ -239,8 +242,10 @@ function deleteRequest(){
 
 function authorize(){
 	alert("인증연동필요");
+	var deletefin = $("#selectAccount option:selected").attr('id');
+	console.log(deletefin);
 	
-	var str2 = "<hr><br><a href=''>해지하기</a><br>";
+	var str2 = "<hr><br><a href='/bank/accountdelete2?deletefin="+deletefin+"'>해지하기</a><br>";
 	
 	$(".title3").html(str2);
 }

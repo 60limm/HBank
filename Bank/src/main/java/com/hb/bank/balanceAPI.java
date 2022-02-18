@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -74,10 +76,10 @@ public class balanceAPI {
 			JsonParser parser = new JsonParser();
 			JsonElement element  = parser.parse(result);
 			
-			balance_amt = element.getAsJsonObject().get("balance_amt").getAsString();
+			//balance_amt = element.getAsJsonObject().get("balance_amt").getAsString();
 			//System.out.println(balance_amt);
 			
-			balanceJson = element.getAsJsonObject();
+			//balanceJson = element.getAsJsonObject();
 			
 			// 사용한 객체 닫아주기
 			br.close();
@@ -87,5 +89,24 @@ public class balanceAPI {
 		}
 		
 		return result;
+	}
+	
+	//development..
+	public List<JsonObject> cancelaccount(List<JsonObject> JsonAccountList, String user_token) {
+		
+		List<JsonObject> JsonList_final = new ArrayList<JsonObject>();
+		
+		for (int i = 0; i < JsonAccountList.size(); i++) {
+			String result = getBalance(JsonAccountList.get(i).get("fintech_use_num").getAsString(),user_token);
+			//System.out.println("조회결과 : " + result.indexOf("A0000"));
+			
+			if(result.indexOf("A0005") < 0) {
+				System.out.println(i+"번째 add");
+				JsonList_final.add(JsonAccountList.get(i));
+			}
+		}
+		
+		return JsonList_final;
+		
 	}
 }

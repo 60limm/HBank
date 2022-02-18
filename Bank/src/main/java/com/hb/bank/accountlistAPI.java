@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @Service
-public class accountlistAPI {
+public class accountlistAPI extends balanceAPI{
 	
 	public List<JsonObject> getAccountList(String user_seq_no, String user_token){
 		
@@ -74,7 +74,6 @@ public class accountlistAPI {
 			// 사용한 객체 닫아주기
 			br.close();
 			
-			
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -120,5 +119,82 @@ public class accountlistAPI {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void delete(String token, String fintech_use_num) {
+		
+		String req_URL = "https://testapi.openbanking.or.kr/v2.0/account/cancel";
+		
+		try {
+			URL url = new URL(req_URL);											
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();	
+			
+			// connection 옵션 설정
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Authorization","Bearer "+token);
+			conn.setDoOutput(true); 
+			
+			// POST요청에 필요한 BODY 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			
+			JSONObject obj = new JSONObject();
+			obj.put("bank_tran_id",MakeBankTranId());
+			obj.put("scope","inquiry");
+			obj.put("fintech_use_num",fintech_use_num);
+			
+			bw.write(obj.toString()); //string builder에서 만든 것을 문자열로 바꿔주는 작업
+			bw.flush();
+			
+			// 요청을 통해 얻은 json 타입의 response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+									
+			while ((line = br.readLine()) != null) {result += line;}
+			System.out.println("계좌해지 결과(조회) : "+result);
+			
+			// 사용한 객체 닫아주기
+			br.close();
+			bw.close();
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			URL url = new URL(req_URL);											
+			HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();
+			
+			// connection 옵션 설정
+			conn2.setRequestMethod("GET");
+			conn2.setRequestProperty("Authorization","Bearer "+token);
+			conn2.setDoOutput(true); 
+						
+			// POST요청에 필요한 BODY 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn2.getOutputStream()));
+			
+			JSONObject obj2 = new JSONObject();
+			obj2.put("bank_tran_id",MakeBankTranId());
+			obj2.put("scope","transfer");
+			obj2.put("fintech_use_num",fintech_use_num);
+			bw.write(obj2.toString()); //string builder에서 만든 것을 문자열로 바꿔주는 작업
+			bw.flush();
+			
+			// 요청을 통해 얻은 json 타입의 response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+			String line = "";
+			String result = "";
+												
+			while ((line = br.readLine()) != null) {result += line;}
+			System.out.println("계좌해지 결과(이체) : "+result);
+						
+			// 사용한 객체 닫아주기
+			br.close();
+			bw.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 }

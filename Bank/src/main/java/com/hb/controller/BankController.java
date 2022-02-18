@@ -128,7 +128,12 @@ public class BankController{
 		
 		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
 		
-		model.addAttribute("JsonAccountList", JsonAccountList);
+		//여기서 jsonaccountlist를 바로 보내지말고 
+		//잔액조회 API를 거치고 나서 error가 아닌 list반환 ?~?
+		//model.addAttribute("JsonAccountList", JsonAccountList);
+		
+		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		model.addAttribute("JsonList_final", JsonList_final);
 		
 		return "account";
 	}
@@ -167,10 +172,20 @@ public class BankController{
 		User user_info = (User)session.getAttribute("user_info");
 		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
 	
-		model.addAttribute("JsonAccountList", JsonAccountList);
+		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		model.addAttribute("JsonList_final", JsonList_final);
 	
 	return "accountDelete";
 	}
+	
+	@RequestMapping("accountdelete2")
+	public String accountDelete2(HttpSession session, Model model, String deletefin) {
+		User user_info = (User)session.getAttribute("user_info");
+		accountlistAPI.delete(user_info.getUser_token(), deletefin);
+
+	return "redirect:accountlist";
+	}
+	
 	
 	//송금, 이체 관련 ***
 	@RequestMapping("transfer/check")

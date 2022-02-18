@@ -177,15 +177,15 @@
 			<th></th>
 		</tr>
 		
-		<c:forEach var="i" begin="0" end="${fn:length(JsonAccountList)-1}">
+		<c:forEach var="i" begin="0" end="${fn:length(JsonList_final)-1}">
 			<tr id='balanceTR${i}' ">
 				<td style="padding-top: 20px;padding-bottom: 20px;">
-					<c:out value="${fn:replace(JsonAccountList.get(i).get('bank_name'),'\"','')} "> </c:out> </td>
-				<td><c:out value="${fn:replace(JsonAccountList.get(i).get('account_num_masked'),'\"','')} "></c:out></td>
-				<td><c:out value="${fn:replace(JsonAccountList.get(i).get('account_alias'),'\"','')} "> </c:out></td>
-				<!--<td><c:out value="${fn:replace(JsonAccountList.get(i).get('fintech_use_num'),'\"','')} "> </c:out></td>-->
-				<!--<td><button type="button" class="btn btn-link" id="btn${i}" onclick='FnAccountClick(${JsonAccountList.get(i).get('fintech_use_num')},${i})'>조회</button></td>-->
-				<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='FnAccountClick(${JsonAccountList.get(i).get('fintech_use_num')},${i})'>잔액조회</button></td>
+					<c:out value="${fn:replace(JsonList_final.get(i).get('bank_name'),'\"','')} "> </c:out> </td>
+				<td><c:out value="${fn:replace(JsonList_final.get(i).get('account_num_masked'),'\"','')} "></c:out></td>
+				<td><c:out value="${fn:replace(JsonList_final.get(i).get('account_alias'),'\"','')} "> </c:out></td>
+				<!--<td><c:out value="${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')} "> </c:out></td>-->
+				<!--<td><button type="button" class="btn btn-link" id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>조회</button></td>-->
+				<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>잔액조회</button></td>
 				<td style="width: 216px;"><button class='btn btn60' id="btnT${i}" onclick='FnUpdateBefore(${i})'>변경</button></td>
 			</tr>
 			<tr>
@@ -197,7 +197,7 @@
 					<div class="col-xs-2">
 					<label>변경할 계좌 별명 : &nbsp;&nbsp;&nbsp;</label>
 						<input type='text' id="update_alias" name="update_alias">
-						<input type='hidden' name='fintech_use_num' value='${fn:replace(JsonAccountList.get(i).get('fintech_use_num'),'\"','')}'>
+						<input type='hidden' name='fintech_use_num' value='${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')}'>
 					&nbsp;&nbsp;&nbsp;
 					<button type='submit' class='btn' border='1px solid #198454'>확인</button>
 					</div>

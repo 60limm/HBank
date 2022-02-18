@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hb.mapper.MainMapper">
+
+	<!-- <select id="selectproduct" resultType="com.hb.domain.Product">
+		select * from tbl_product
+	</select> -->
+	
+	
+	<insert id="joinForm" parameterType="com.hb.domain.User">
+		INSERT into tbl_user
+		VALUES(#{user_seq_no}, #{user_id}, #{user_pw}, #{user_name}, #{user_tel},
+			   sysdate, 'F', #{user_token}, #{user_refresh_token})
+	</insert>
+	
+	<select id="loginForm" parameterType="com.hb.domain.User" resultType="com.hb.domain.User">
+		SELECT * FROM tbl_user
+		WHERE user_id=#{user_id} and user_pw=#{user_pw}
+	</select>
+</mapper>

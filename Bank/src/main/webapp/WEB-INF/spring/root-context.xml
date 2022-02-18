@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="
+	http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
+		<!-- 드라이버 클래스 이름이 변경됨 -->
+		<!-- oracle.jdbc.driver.OracleDriver --> 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<!-- 연결문자열에 log4jdbc가 추가됨 --> 
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" /> 
+		<property name="username" value="test6" /> 
+		<property name="password" value="test6" /> 
+	</bean> 
+		
+		<!-- SqlSessionFactory 객체 주입 
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+			<property name="dataSource" ref="dataSource" />
+			<property name="mapperLocations" value="classpath:/**/mapper/*Mapper.xml"></property>  
+		</bean>-->
+
+	<bean id="hikariDataSource"
+		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	   <property name="dataSource" ref="hikariDataSource"/>
+	</bean>
+	
+	<!-- <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	   <property name="dataSource" ref="hikariDataSource"/>
+	   <property name="mapperLocations" value="classpath:/**/mapper/*Mapper.xml"></property>  
+	</bean> -->
+	
+	<mybatis-spring:scan base-package="com.hb.mapper"/>
+
+</beans>

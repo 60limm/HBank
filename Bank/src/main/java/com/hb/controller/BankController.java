@@ -116,7 +116,7 @@ public class BankController{
 	
 	// 회원가입/로그인/로그아웃 처리
 	@RequestMapping(value = {"joinForm","loginForm","logout"})
-	public String joinForm(User uservo, HttpServletRequest request) {
+	public String joinForm(User uservo, HttpServletRequest request,Model model) {
 		String path = "";
 		
 		if(request.getServletPath().equals("/joinForm")) {
@@ -126,7 +126,13 @@ public class BankController{
 		}else if(request.getServletPath().equals("/loginForm")) {
 			User user_info = mapper.loginForm(uservo);
 			session.setAttribute("user_info", user_info);
-			path = "home";
+			if (user_info==null) {
+				System.out.println("로그인 실패");
+				model.addAttribute("tryTF","F");
+				path = "inner";
+			}else {
+				path = "home";
+			}
 		}else if(request.getServletPath().equals("/logout")) {
 			session.invalidate();
 			path = "home";
@@ -148,7 +154,7 @@ public class BankController{
 		return balanceJson;
 	}
 	@RequestMapping("accountlistUpdate")
-	public String Update(Model model, HttpSession session, HttpServletRequest request) {
+	public String Update(Model model, HttpServletRequest request) {
 		
 		User user_info = (User)session.getAttribute("user_info");
 

@@ -52,7 +52,11 @@
     }
 </style>
 <body>
-
+<script>
+if (${tryTF!=null}){
+	alert("로그인에 실패하였습니다.\n아이디와 패스워드를 다시 입력하세요.");
+}
+</script>
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
@@ -61,6 +65,8 @@
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 	  
+	  ${tryTF}
+		  
 	  <c:if test="${user_info!=null}"> <!-- 로그인 O -->
       <nav id="navbar" class="navbar">
         <ul>

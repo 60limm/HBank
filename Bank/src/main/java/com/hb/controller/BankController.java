@@ -30,6 +30,9 @@ public class BankController{
 	MainMapper mapper;
 	
 	@Autowired
+	HttpSession session;
+	
+	@Autowired
 	private com.hb.bank.tokenAPI tokenmethod;
 	
 	@Autowired
@@ -44,12 +47,15 @@ public class BankController{
 	@Autowired
 	private com.hb.bank.transactionlistAPI transactionlistAPI;
 	
-	public List<JsonObject> LoadAccountList(HttpSession session){
-		
+	public User LoadSession() {
 		User user_info = (User)session.getAttribute("user_info");
+		return user_info;
+	}
+	
+	public List<JsonObject> LoadAccountList(){
 		
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(LoadSession().getUser_seq_no(),LoadSession().getUser_token());
+		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, LoadSession().getUser_token());
 		
 		return JsonList_final;
 	}
@@ -63,10 +69,10 @@ public class BankController{
 	
 	//계좌 list만 불러오는 request 처리
 	@RequestMapping(value={"accountlist","account/delete","homeTransfer"})
-	public String accountlist(Model model, HttpSession session, HttpServletRequest request) {
+	public String accountlist(Model model, HttpServletRequest request) {
 		
 		String path = "";
-		List<JsonObject> JsonList_final = LoadAccountList(session);
+		List<JsonObject> JsonList_final = LoadAccountList();
 		model.addAttribute("JsonList_final", JsonList_final);
 		System.out.println("PATH : "+request.getServletPath());
 		if(request.getServletPath().equals("/accountlist")) {
@@ -108,32 +114,26 @@ public class BankController{
 		return redirect; //나중에 중복 없애주기~ else문
 	}
 	
-	@RequestMapping("joinForm")
-	public String joinForm(User uservo) {
-		System.out.println(uservo.getUser_id()+uservo.getUser_token());
-		mapper.joinForm(uservo);
-		System.out.println("insert completed");
+	// 회원가입/로그인/로그아웃 처리
+	@RequestMapping(value = {"joinForm","loginForm","logout"})
+	public String joinForm(User uservo, HttpServletRequest request) {
+		String path = "";
 		
-		return "inner";
-	}
-	
-	@RequestMapping("loginForm")
-	public String loginForm(User uservo, HttpSession session) {
+		if(request.getServletPath().equals("/joinForm")) {
+			mapper.joinForm(uservo);
+			System.out.println("join - insert completed");
+			path = "inner";
+		}else if(request.getServletPath().equals("/loginForm")) {
+			User user_info = mapper.loginForm(uservo);
+			session.setAttribute("user_info", user_info);
+			path = "home";
+		}else if(request.getServletPath().equals("/logout")) {
+			session.invalidate();
+			path = "home";
+		}
 		
-		User user_info = mapper.loginForm(uservo);
-
-		session.setAttribute("user_info", user_info);
-		
-		return "home";
+		return path;
 	}
-	
-	@RequestMapping("logout")
-	public String logout(HttpSession session) {
-		System.out.println("로그아웃..세션에서 데이터 삭제..");
-		session.invalidate();
-		return "home";
-	}
-	
 	
 	@RequestMapping(value="accountlist/balance",produces = "application/text; charset=UTF-8")
 	@ResponseBody
@@ -154,7 +154,7 @@ public class BankController{
 
 		accountlistAPI.update(request.getParameter("update_alias"),request.getParameter("fintech_use_num"),user_info.getUser_token());
 		
-		List<JsonObject> JsonList_final = LoadAccountList(session);
+		List<JsonObject> JsonList_final = LoadAccountList();
 		model.addAttribute("JsonList_final", JsonList_final);
 				
 		return "account";
@@ -236,7 +236,7 @@ public class BankController{
 	@RequestMapping("transactionlist") //얘도 합치기 가능
 	public String transactionlist(Model model, HttpSession session) {
 
-		List<JsonObject> JsonList_final = LoadAccountList(session);
+		List<JsonObject> JsonList_final = LoadAccountList();
 		model.addAttribute("JsonList_final", JsonList_final);
 		
 		return "transaction";

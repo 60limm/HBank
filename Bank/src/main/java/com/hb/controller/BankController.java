@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
-import com.hb.domain.Product;
 import com.hb.domain.User;
 import com.hb.mapper.MainMapper;
 

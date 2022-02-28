@@ -44,6 +44,22 @@ public class BankController{
 	@Autowired
 	private com.hb.bank.transactionlistAPI transactionlistAPI;
 	
+	public List<JsonObject> LoadAccountList(HttpSession session){
+		
+		User user_info = (User)session.getAttribute("user_info");
+		
+		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
+				
+		//여기서 jsonaccountlist를 바로 보내지말고 
+		//잔액조회 API를 거치고 나서 error가 아닌 list반환 ?~?
+		//model.addAttribute("JsonAccountList", JsonAccountList);
+				
+		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		
+		return JsonList_final;
+	}
+	
+	
 	@RequestMapping("home")
 	public String home(Model model) {
 		return "home";
@@ -105,9 +121,7 @@ public class BankController{
 	public String loginForm(User uservo, HttpSession session) {
 		
 		User user_info = mapper.loginForm(uservo);
-		//System.out.println("로그인 한 유저 번호 : " + user_info.getUser_seq_no());
 
-		//로그인 유저의 정보를 세션에 저장
 		session.setAttribute("user_info", user_info);
 		
 		return "home";
@@ -120,19 +134,10 @@ public class BankController{
 		return "home";
 	}
 	
-	@RequestMapping("accountlist")
+	@RequestMapping(value={"accountlist"})
 	public String accountlist(Model model, HttpSession session) {
 		
-		//세션에서 유저정보>토큰 가져오기
-		User user_info = (User)session.getAttribute("user_info");
-		
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-		
-		//여기서 jsonaccountlist를 바로 보내지말고 
-		//잔액조회 API를 거치고 나서 error가 아닌 list반환 ?~?
-		//model.addAttribute("JsonAccountList", JsonAccountList);
-		
-		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		List<JsonObject> JsonList_final = LoadAccountList(session);
 		model.addAttribute("JsonList_final", JsonList_final);
 		
 		return "account";
@@ -142,37 +147,30 @@ public class BankController{
 	@ResponseBody
 	public String balance(String fintech_use_num, Model model, HttpSession session) {
 		
-		//세션에서 유저정보>토큰 가져오기
 		User user_info = (User)session.getAttribute("user_info");
 		String user_token = user_info.getUser_token();
 		
 		//잔액조회 결과를 리턴
 		String balanceJson = balanceAPI.getBalance(fintech_use_num, user_token);
-		System.out.println(balanceJson);
 		
 		return balanceJson;
 	}
-	@RequestMapping("accountlist/update")
+	@RequestMapping("accountlistUpdate")
 	public String Update(Model model, HttpSession session, HttpServletRequest request) {
 		
-		//세션에서 유저정보>토큰 가져오기
 		User user_info = (User)session.getAttribute("user_info");
 
-		//api 다녀오기..
 		accountlistAPI.update(request.getParameter("update_alias"),request.getParameter("fintech_use_num"),user_info.getUser_token());
 		
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-		model.addAttribute("JsonAccountList", JsonAccountList);
+		List<JsonObject> JsonList_final = LoadAccountList(session);
+		model.addAttribute("JsonList_final", JsonList_final);
 				
 		return "account";
 	}
-	@RequestMapping("account/delete")
+	@RequestMapping("account/delete") //합칠 수 있으면 합치기
 	public String accountDelete(HttpSession session, Model model) {
 		
-		User user_info = (User)session.getAttribute("user_info");
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-	
-		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
+		List<JsonObject> JsonList_final = LoadAccountList(session);
 		model.addAttribute("JsonList_final", JsonList_final);
 	
 	return "accountDelete";
@@ -249,25 +247,21 @@ public class BankController{
 		return result;
 	}
 	
-	@RequestMapping("homeTransfer")
+	@RequestMapping("homeTransfer") //얘도 합치기 가능
 	public String homeTransfer(Model model, HttpSession session) {
 		
-		User user_info = (User)session.getAttribute("user_info");
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-
-		model.addAttribute("JsonAccountList", JsonAccountList);
+		List<JsonObject> JsonList_final = LoadAccountList(session);
+		model.addAttribute("JsonList_final", JsonList_final);
 		
 		return "homeTransfer";
 	}
 	
 	//거래내역(transaction) 조회 관련 
-	@RequestMapping("transactionlist")
+	@RequestMapping("transactionlist") //얘도 합치기 가능
 	public String transactionlist(Model model, HttpSession session) {
 
-		User user_info = (User)session.getAttribute("user_info");
-		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-
-		model.addAttribute("JsonAccountList", JsonAccountList);
+		List<JsonObject> JsonList_final = LoadAccountList(session);
+		model.addAttribute("JsonList_final", JsonList_final);
 		
 		return "transaction";
 	}

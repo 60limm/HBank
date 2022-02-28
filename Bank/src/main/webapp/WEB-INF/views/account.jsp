@@ -189,7 +189,7 @@
 			</tr>
 			<tr class='updateTR' id='updateTR${i}'>
 				<td colspan='5' class='updateTD' id='updateTD${i}'><div class='updateDIV' id='updateDIV${i}'>
-					<form action='accountlist/update' method='post'>
+					<form action='accountlistUpdate' method='post'>
 					<div class="col-xs-2">
 					<label>변경할 계좌 별명 : &nbsp;&nbsp;&nbsp;</label>
 						<input type='text' id="update_alias" name="update_alias">

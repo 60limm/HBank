@@ -172,9 +172,9 @@
 			<select class="form-control" id="selectAccount" style="width: 280px;">
 				<option value="none">- 선택 - </option>
 				
-				<c:forEach var="i" begin="0" end="${fn:length(JsonAccountList)-1}">
-					<option id='${fn:replace(JsonAccountList.get(i).get('fintech_use_num'),'\"','')}'>
-						${fn:replace(JsonAccountList.get(i).get('bank_name'),'\"','')} ${fn:replace(JsonAccountList.get(i).get('account_num_masked'),'\"','')} 
+				<c:forEach var="i" begin="0" end="${fn:length(JsonList_final)-1}">
+					<option id='${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')}'>
+						${fn:replace(JsonList_final.get(i).get('bank_name'),'\"','')} ${fn:replace(JsonList_final.get(i).get('account_num_masked'),'\"','')} 
 					</option>
 				</c:forEach> 
 			

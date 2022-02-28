@@ -165,17 +165,17 @@
 			<th></th>
 		</tr>
 		
-		<c:forEach var="i" begin="0" end="${fn:length(JsonAccountList)-1}">
+		<c:forEach var="i" begin="0" end="${fn:length(JsonList_final)-1}">
 			<tr id='balanceTR${i}' ">
 				<td style="padding-top: 20px;padding-bottom: 20px;">
-					<c:out value="${fn:replace(JsonAccountList.get(i).get('bank_name'),'\"','')} "> </c:out> </td>
-				<td><c:out value="${fn:replace(JsonAccountList.get(i).get('account_num_masked'),'\"','')} "></c:out></td>
-				<td><c:out value="${fn:replace(JsonAccountList.get(i).get('account_alias'),'\"','')} "> </c:out></td>
-				<!--<td><c:out value="${fn:replace(JsonAccountList.get(i).get('fintech_use_num'),'\"','')} "> </c:out></td>-->
-				<!--<td><button type="button" class="btn btn-link" id="btn${i}" onclick='FnAccountClick(${JsonAccountList.get(i).get('fintech_use_num')},${i})'>조회</button></td>-->
-				<!--<td><a class="gg" href='#' id="btn${i}" onclick='FnAccountClick(${JsonAccountList.get(i).get('fintech_use_num')},${i})'>잔액조회</a></td>-->
-				<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='FnAccountClick(${JsonAccountList.get(i).get('fintech_use_num')},${i})'>정보</button></td>
-				<td><a class="getstarted scrollto" href='#' id="btnT${i}" onclick='FnTransfer(${JsonAccountList.get(i).get('fintech_use_num')},${JsonAccountList.get(i).get('account_num_masked')})' style='color:#198754 !important'>송금</a></td>
+					<c:out value="${fn:replace(JsonList_final.get(i).get('bank_name'),'\"','')} "> </c:out> </td>
+				<td><c:out value="${fn:replace(JsonList_final.get(i).get('account_num_masked'),'\"','')} "></c:out></td>
+				<td><c:out value="${fn:replace(JsonList_final.get(i).get('account_alias'),'\"','')} "> </c:out></td>
+				<!--<td><c:out value="${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')} "> </c:out></td>-->
+				<!--<td><button type="button" class="btn btn-link" id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>조회</button></td>-->
+				<!--<td><a class="gg" href='#' id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>잔액조회</a></td>-->
+				<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>정보</button></td>
+				<td><a class="getstarted scrollto" href='#' id="btnT${i}" onclick='FnTransfer(${JsonList_final.get(i).get('fintech_use_num')},${JsonList_final.get(i).get('account_num_masked')})' style='color:#198754 !important'>송금</a></td>
 			</tr>
 			<tr>
 				<td colspan='5' class='balanceTD' id='balanceTD${i}'><div class='balanceDIV' id='balanceDIV${i}'></div></td>

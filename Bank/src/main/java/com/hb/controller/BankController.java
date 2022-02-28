@@ -49,35 +49,35 @@ public class BankController{
 		User user_info = (User)session.getAttribute("user_info");
 		
 		List<JsonObject> JsonAccountList = accountlistAPI.getAccountList(user_info.getUser_seq_no(),user_info.getUser_token());
-				
-		//여기서 jsonaccountlist를 바로 보내지말고 
-		//잔액조회 API를 거치고 나서 error가 아닌 list반환 ?~?
-		//model.addAttribute("JsonAccountList", JsonAccountList);
-				
 		List<JsonObject> JsonList_final = balanceAPI.cancelaccount(JsonAccountList, user_info.getUser_token());
 		
 		return JsonList_final;
 	}
 	
-	
-	@RequestMapping("home")
-	public String home(Model model) {
-		return "home";
+	//단순하게 바로 value.jsp로 가는 request 처리
+	@RequestMapping(value = {"home","inner","about"})
+	public String home(Model model, HttpServletRequest request) {
+		
+		return request.getServletPath();
 	}
 	
-	@RequestMapping("inner")
-	public String inner() {
-		return "inner";
-	}
-	
-	@RequestMapping("main") 
-	public String main(Model model){
-		return "main";
-	}
-	
-	@RequestMapping("about") 
-	public String about(){
-		return "about";
+	//계좌 list만 불러오는 request 처리
+	@RequestMapping(value={"accountlist","account/delete","homeTransfer"})
+	public String accountlist(Model model, HttpSession session, HttpServletRequest request) {
+		
+		String path = "";
+		List<JsonObject> JsonList_final = LoadAccountList(session);
+		model.addAttribute("JsonList_final", JsonList_final);
+		System.out.println("PATH : "+request.getServletPath());
+		if(request.getServletPath().equals("/accountlist")) {
+			path = "account";
+		}else if(request.getServletPath().equals("/account/delete")) {
+			path = "accountDelete";
+		}else if(request.getServletPath().equals("/homeTransfer")) {
+			path = "homeTransfer";
+		}
+		
+		return path;
 	}
 	
 	@RequestMapping(value = "join", method=RequestMethod.GET)
@@ -134,14 +134,6 @@ public class BankController{
 		return "home";
 	}
 	
-	@RequestMapping(value={"accountlist"})
-	public String accountlist(Model model, HttpSession session) {
-		
-		List<JsonObject> JsonList_final = LoadAccountList(session);
-		model.addAttribute("JsonList_final", JsonList_final);
-		
-		return "account";
-	}
 	
 	@RequestMapping(value="accountlist/balance",produces = "application/text; charset=UTF-8")
 	@ResponseBody
@@ -167,14 +159,7 @@ public class BankController{
 				
 		return "account";
 	}
-	@RequestMapping("account/delete") //합칠 수 있으면 합치기
-	public String accountDelete(HttpSession session, Model model) {
-		
-		List<JsonObject> JsonList_final = LoadAccountList(session);
-		model.addAttribute("JsonList_final", JsonList_final);
 	
-	return "accountDelete";
-	}
 	
 	@RequestMapping("accountdelete2")
 	public String accountDelete2(HttpSession session, Model model, String deletefin) {
@@ -245,15 +230,6 @@ public class BankController{
 		String result= transferAPI.receiveCheck(cntr_account_num,bank_code_std,fin,tran_amt,user_info.getUser_token(),user_info.getUser_seq_no(),user_info.getUser_name());
 		
 		return result;
-	}
-	
-	@RequestMapping("homeTransfer") //얘도 합치기 가능
-	public String homeTransfer(Model model, HttpSession session) {
-		
-		List<JsonObject> JsonList_final = LoadAccountList(session);
-		model.addAttribute("JsonList_final", JsonList_final);
-		
-		return "homeTransfer";
 	}
 	
 	//거래내역(transaction) 조회 관련 

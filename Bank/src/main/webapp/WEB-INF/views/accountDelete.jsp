@@ -57,6 +57,11 @@
 	    transition: 0.3s;
 	    font-size: 14px;
 	}
+	
+	#checkUser{
+		margin-left: 20px;
+	}
+	
 	main{
     	margin-top: 100px;
     }
@@ -230,20 +235,46 @@
   
 <script>
 function deleteRequest(){
-	var str = "<hr><br>사용자 인증이 필요합니다<br>";
+	var str = "<hr><br>사용자 확인이 필요합니다<br><br>";
 	// str += "<div id='loginForm' style='width: 500px; margin: auto ; align:center;'>"
-	str += "<a href='#' onclick='authorize()'>Click</a>";
+	str += "<form><table style='margin:auto;'>";
+	str += "<tr><th>아이디:&nbsp;&nbsp;&nbsp;&nbsp; </th><td colspan='3'><input type='text' id='user_id' name='user_id' class='form-control' required></td>"
+	str += "<td rowspan='2'><a href='#' id='checkUser' onclick='authorize()' class='getstarted scrollto'><b>사용자 확인</b></a></td></tr>";
+	str += "<tr><th>비밀번호:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th><td colspan='3'><input type='password' id='user_pw' name='user_pw' class='form-control' required></td></tr></table></form>"
 	$(".title3").html(str);
 }
 
 function authorize(){
-	alert("인증연동필요");
-	var deletefin = $("#selectAccount option:selected").attr('id');
-	console.log(deletefin);
 	
-	var str2 = "<hr><br><a href='/bank/accountdelete2?deletefin="+deletefin+"'>해지하기</a><br>";
+	var user_id = $("#user_id").val();
+	var user_pw = $("#user_pw").val();
 	
-	$(".title3").html(str2);
+	//ajax로 login가능한지 확인다녀오기~
+	$.ajax({
+		type :'POST',
+		url : 'http://172.21.200.26:8081/bank/UserCheck',
+		dataType : 'text',
+		data : {
+			"user_id" : user_id,
+			"user_pw" : user_pw
+		},
+		success: function(response){
+			
+			if(response=='T'){
+				var deletefin = $("#selectAccount option:selected").attr('id');
+				console.log(deletefin);
+				var str2 = "<hr><br>사용자 인증에 성공하였습니다.<br><a href='/bank/accountdelete2?deletefin="+deletefin+"'>해지하기</a><br>";
+
+			}else if(response=='F'){
+				var str2 = "<hr><br>사용자 인증에 실패하였습니다.<br><a href='/bank/account/delete'>재시도</a>";
+			}
+				$(".title3").html(str2);
+		},
+		error:function(){alert("error");}
+		
+	})
+	
+	
 }
 
 function selectAccountFn(){

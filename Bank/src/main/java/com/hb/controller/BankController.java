@@ -141,6 +141,19 @@ public class BankController{
 		return path;
 	}
 	
+	@RequestMapping(value="UserCheck",produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String UserCheck(User uservo) {
+		
+		String result = "T";
+		User user_info = mapper.loginForm(uservo);
+		if (user_info==null) {
+			System.out.println("사용자인증 실패");
+			result = "F";
+		}
+		return result;
+	}
+	
 	@RequestMapping(value="accountlist/balance",produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String balance(String fintech_use_num, Model model, HttpSession session) {

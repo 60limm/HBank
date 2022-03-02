@@ -279,7 +279,6 @@ public class BankController{
 		
 		//우선 전체 상품 리스트 불러오기
 		model.addAttribute("savingslist",savingslist);
-		System.out.println(savingslist);
 		return "savings";
 	}
 }

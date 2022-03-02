@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
+import com.hb.domain.Savings;
 import com.hb.domain.User;
 import com.hb.mapper.MainMapper;
 
@@ -269,6 +270,17 @@ public class BankController{
 		String JsonList = transactionlistAPI.transactionSearch(fintech_use_num,from_date,to_date, user_info.getUser_token());
 		
 		return JsonList;
+	}
+	
+	@RequestMapping(value= {"savings"})
+	public String savings(Model model, Savings savings) {
+		
+		List<Savings> savingslist = mapper.savingslist();
+		
+		//우선 전체 상품 리스트 불러오기
+		model.addAttribute("savingslist",savingslist);
+		System.out.println(savingslist);
+		return "savings";
 	}
 }
 

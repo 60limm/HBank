@@ -18,4 +18,8 @@
 		SELECT * FROM tbl_user
 		WHERE user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
+	
+	<select id="savingslist" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings
+	</select>
 </mapper>

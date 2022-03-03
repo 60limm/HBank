@@ -273,12 +273,20 @@ public class BankController{
 		return JsonList;
 	}
 	
-	@RequestMapping(value= {"savings"})
-	public String savings(Model model, Savings savings) {
+	@RequestMapping(value= {"savings","savingsdeposit","savingsinstallment"})
+	public String savings(Model model, Savings savings, HttpServletRequest request) {
 		
-		List<Savings> savingslist = mapper.savingslist();
+		List<Savings> savingslist = null;
 		
-		//우선 전체 상품 리스트 불러오기
+		//예적금 select reload, 전체 list load
+		if(request.getServletPath().equals("/savings")) {
+			savingslist = mapper.savingslist();
+		}else if(request.getServletPath().equals("/savingsdeposit")) {
+			savingslist = mapper.depositlist();
+		}else if(request.getServletPath().equals("/savingsinstallment")) {
+			savingslist = mapper.installmentlist();
+		}
+			
 		model.addAttribute("savingslist",savingslist);
 		return "savings";
 	}

@@ -72,8 +72,8 @@
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="#">가입상품보기</a></li>
             </ul>
           </li>
@@ -100,8 +100,8 @@
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="#">가입상품보기</a></li>
             </ul>
           </li>

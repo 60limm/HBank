@@ -101,8 +101,8 @@
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="#">가입상품보기</a></li>
             </ul>
           </li>
@@ -129,8 +129,8 @@
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="#">가입상품보기</a></li>
             </ul>
           </li>
@@ -175,14 +175,14 @@
           <div class="col-lg-4 col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-laptop"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>
               <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-briefcase"></i></div>
-              <h4 class="title"><a href="">Dolor Sitema</a></h4>
+              <h4 class="title"><a href="/bank/savingsinstallment">적금</a></h4>
               <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
             </div>
           </div>
@@ -320,6 +320,7 @@
 	function nologin(){
 		location.href='http://172.21.200.26:8081/bank/inner'
 	}
+	
 </script>
 </body>
 

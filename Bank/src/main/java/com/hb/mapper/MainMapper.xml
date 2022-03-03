@@ -33,4 +33,13 @@
 		VALUES(TBL_Used_SEQ.NEXTVAL, #{used_usernum}, #{used_finnum}, '진행', sysdate,
 		 #{used_maturity, jdbcType=DATE}, #{used_service_seq, jdbcType=NUMERIC}, #{used_payment_date}, #{used_payment_amount})
 	</insert>
+	
+	<select id="depositlist" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings
+		WHERE sv_type = 'D'
+	</select>
+	<select id="installmentlist" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings
+		WHERE sv_type = 'I'
+	</select>
 </mapper>

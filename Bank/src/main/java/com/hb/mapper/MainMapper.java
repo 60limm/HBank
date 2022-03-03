@@ -17,6 +17,10 @@ public interface MainMapper {
 	public User loginForm(User uservo);
 	
 	public List<Savings> savingslist();
+	public List<Savings> depositlist();
+	public List<Savings> installmentlist();
+	
+	
 	public List<Savings> savingSelectOne(int sv_seq);
 	
 	public void savingForm(Used used);

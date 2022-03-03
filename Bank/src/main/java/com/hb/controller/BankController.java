@@ -302,10 +302,9 @@ public class BankController{
 	@RequestMapping(value= {"savingform"})
 	public String savingform(Model model, Used usedvo) {
 		
-		System.out.println("요왔다");
 		//데이터 가공 후 insert 
 		mapper.savingForm(usedvo);
-		return "test";
+		return "savingResult";
 	}
 }
 

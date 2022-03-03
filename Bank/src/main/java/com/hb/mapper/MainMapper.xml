@@ -27,4 +27,10 @@
 		SELECT * from tbl_savings 
 		WHERE sv_seq = #{sv_seq}
 	</select>
+	
+	<insert id="savingForm" parameterType="com.hb.domain.Used">
+		INSERT into tbl_used
+		VALUES(TBL_Used_SEQ.NEXTVAL, #{used_usernum}, #{used_finnum}, '진행', sysdate,
+		 #{used_maturity, jdbcType=DATE}, #{used_service_seq, jdbcType=NUMERIC}, #{used_payment_date}, #{used_payment_amount})
+	</insert>
 </mapper>

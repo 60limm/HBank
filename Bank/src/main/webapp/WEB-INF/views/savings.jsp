@@ -229,7 +229,14 @@
           	<div style="width:30%; text-align:center; margin:auto;">
           	<div style="display:inline-block; text-align:center;">
           	<button class='btn btn60' onclick='infobtn(${status.index})'>상세보기</button>
+          	
+          	<c:if test="${user_info!=null}">
           	<button class='btn btn60' onclick='reqbtn(${savingsVO.sv_seq})'>가입하기</button>
+          	</c:if>
+          	<c:if test="${user_info==null}">
+          	<button class='btn btn60' onclick='nologin()'>가입하기</button>
+          	</c:if>
+
           	</div>
           	</div>
           
@@ -307,7 +314,11 @@
 	
 	function reqbtn(sv_seq){
 		console.log(sv_seq);
-		location.href='http://172.21.200.26:8081/bank/savingform?sv_seq='+sv_seq;
+		location.href='http://172.21.200.26:8081/bank/savingformLoad?sv_seq='+sv_seq;
+	}
+	
+	function nologin(){
+		location.href='http://172.21.200.26:8081/bank/inner'
 	}
 </script>
 </body>

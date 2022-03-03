@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 import com.hb.domain.Savings;
+import com.hb.domain.Used;
 import com.hb.domain.User;
 import com.hb.mapper.MainMapper;
 
@@ -282,8 +283,8 @@ public class BankController{
 		return "savings";
 	}
 	
-	@RequestMapping(value= {"savingform"})
-	public String savingform(Model model, Savings savings, String sv_seq) {
+	@RequestMapping(value= {"savingformLoad"})
+	public String savingformLoad(Model model, Savings savings, String sv_seq) {
 		
 		int sv_seq_int = Integer.parseInt(sv_seq);
 		
@@ -296,6 +297,15 @@ public class BankController{
 		model.addAttribute("AllAc", JsonList_final);
 		
 		return "savingform";
+	}
+	
+	@RequestMapping(value= {"savingform"})
+	public String savingform(Model model, Used usedvo) {
+		
+		System.out.println("요왔다");
+		//데이터 가공 후 insert 
+		mapper.savingForm(usedvo);
+		return "test";
 	}
 }
 

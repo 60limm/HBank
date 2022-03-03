@@ -152,7 +152,7 @@ ${param.sv_seq}
     <section id="about" class="about">
       <div class="container">
         <div class="row">
-        <form action="transfer/check" method="POST">
+        <form id="savingform" action="savingform" method="POST">
 			<table class='table table-bordered'>
 			<!--<caption>송금 정보</caption>-->
 			<tr>
@@ -186,21 +186,37 @@ ${param.sv_seq}
 			</tr>
 			<tr>
 				<th>납입금액<br>(단위 : 원)</th>
-				<td colspan='3'><input type='text' id='amount' name='amount' class="form-control" required></td>
+				<td colspan='3'><input type='text' id='used_payment_amount' name='used_payment_amount' class="form-control" required></td>
 			</tr>
 			<tr>
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
 				<th>납입일</th>
 				<td><select class="form-control"><option>매월</option></select></td>
-				<td colspan='2'><select class="form-control"><option>1일</option><option>2일</option><option>3일</option></select></td>
+				<td colspan='2'><select class="form-control" name='used_payment_date'>
+				<option value='1'>1일</option><option value='2'>2일</option><option value='3'>3일</option>
+				<option value='4'>4일</option><option value='5'>5일</option><option value='6'>6일</option>
+				<option value='7'>7일</option><option value='8'>8일</option><option value='9'>9일</option>
+				<option value='10'>10일</option><option value='11'>11일</option><option value='12'>12일</option>
+				<option value='13'>13일</option><option value='14'>14일</option><option value='15'>15일</option>
+				<option value='16'>16일</option><option value='18'>18일</option><option value='18'>18일</option>
+				<option value='19'>19일</option><option value='20'>20일</option><option value='21'>21일</option>
+				<option value='22'>22일</option><option value='23'>23일</option><option value='24'>24일</option>
+				<option value='25'>25일</option><option value='26'>26일</option><option value='27'>27일</option>
+				<option value='28'>28일</option><option value='29'>29일</option><option value='30'>30일</option>
+				</select></td>
 			  </c:if>
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('D')}">
 				<th>납입일</th>
 				<td colspan='3'><input type='text' class='form-control' value='매일' readonly/>
+				<input type='hidden' id='used_payment_date' name='used_payment_date' value='D'>
 			  </c:if>
 			</tr>
 			<tr>
 				<td colspan='4'><input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
+				<input type='hidden' id='used_finnum' name='used_finnum'>
+				<input type='hidden' id='used_service_seq' name='used_service_seq' value='${param.sv_seq}'>
+				<input type='hidden' id='used_usernum' name='used_usernum' value='${user_info.user_seq_no}'>
+				<input type='hidden' id='used_maturity' name='used_maturity'>
 			</tr>
 			<tr style=" text-align: right;">
 				<td colspan='4'><button type='button' class='btn' onclick='btnclick()'>신청</button>
@@ -211,7 +227,8 @@ ${param.sv_seq}
      </div>
     </section><!-- End About Us Section -->
   </main>
-    <!-- ======= Footer ======= -->
+  
+  <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
       <h3>Green</h3>
@@ -232,12 +249,13 @@ ${param.sv_seq}
   
   <script>
   function btnclick(){
-	  var sv_seq = ${param.sv_seq};
-	  var finnum = $("#selectAccount option:selected").attr('id');
-	  var amount = $("#amount").val();
-	  var date   = $("#date").val();
+	  var used_finnum		  = $("#selectAccount option:selected").attr('id');
 	  
-	  console.log(sv_seq, finnum, amount, date);
+	  $("#used_finnum").val(used_finnum);
+	  $("#used_maturity").val('2024-01-01');
+	  
+	  $("#savingform").submit();
+	  
   }
   </script>
 </body>

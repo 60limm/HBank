@@ -281,6 +281,22 @@ public class BankController{
 		model.addAttribute("savingslist",savingslist);
 		return "savings";
 	}
+	
+	@RequestMapping(value= {"savingform"})
+	public String savingform(Model model, Savings savings, String sv_seq) {
+		
+		int sv_seq_int = Integer.parseInt(sv_seq);
+		
+		//해당 상품 리스트 불러오기
+		List<Savings> savingSelectOne = mapper.savingSelectOne(sv_seq_int);
+		model.addAttribute("OneP",savingSelectOne);
+		
+		//사용자 계좌 리스트 불러오기
+		List<JsonObject> JsonList_final = LoadAccountList();
+		model.addAttribute("AllAc", JsonList_final);
+		
+		return "savingform";
+	}
 }
 
 

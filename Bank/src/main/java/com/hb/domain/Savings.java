@@ -17,4 +17,10 @@ public class Savings {
 	private String sv_term;			// 상품기간		month기준 -> day기준
 	private String sv_manager;		// 관리자고유번호	default : 1101003002
 	private String sv_type;			// 상품구분		예금 : deposit(D) / 적금 : installment(I)
+	private String sv_limit_min;	// 최소납입금
+	private String sv_limit_max;	// 최대납입금
+	private String sv_contents;		// 설명
+	private String sv_target;		// 가입대상		개인 / 직장인 / 청년 
+	private String sv_return_type;	// 이자지급방식		default : 만기일시지급
+	private String sv_payment_type; // 납입방식		매월 : M / 매일 : D
 }

@@ -22,4 +22,9 @@
 	<select id="savingslist" resultType="com.hb.domain.Savings">
 		SELECT * FROM tbl_savings
 	</select>
+	
+	<select id="savingSelectOne" parameterType="com.hb.domain.Savings" resultType="com.hb.domain.Savings">
+		SELECT * from tbl_savings 
+		WHERE sv_seq = #{sv_seq}
+	</select>
 </mapper>

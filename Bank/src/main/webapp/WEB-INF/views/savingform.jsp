@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -44,30 +44,18 @@
   
 </head>
 <style>
-	
-	.btn60{
-    	color: white !important;
-    	border : 1px solid #5CB874 !important;
-    	margin-right: 20px !important;
-    	background-color : #5CB874 !important;
-    }
-    
-    #sortSelectCustom{
-    	border: 1px solid #aaa;
-  		border-radius: 0.5em;
-  		box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
-  		background-color: #fff;
-  		padding: 4px 1.4em 4px 0.8em;
-  		margin: 0;
-    }
+	th, td {
+  		text-align: center;
+  		vertical-align : middle !important;
+	}  		
+	main{
+    	margin-top: 100px;
+    }	
 </style>
 <body>
-<script>
-	window.onload = function(){
-		$(".infoDIV").hide();
-	}
-</script>
-	<!-- Vendor JS Files -->
+${param.sv_seq}
+<!-- ------------ -->
+<!-- Vendor JS Files -->
   <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1" />"></script>
   <script src="<c:url value="/resources/vendor/glightbox/js/glightbox.min.js" />"></script>
   <script src="<c:url value="/resources/vendor/isotope-layout/isotope.pkgd.min.js" />"></script>
@@ -154,135 +142,80 @@
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Product</li>
+            <li>Sign Up</li>
           </ol>
         </div>
       </div>
     </section><!-- End Breadcrumbs -->
-    <!-- ======= Featured Services Section ======= -->
-    <section id="featured-services" class="featured-services section-bg">
-      <div class="section-title">
-      	  <br><br>
-          <h2>금융상품</h2>
-          <p>사용자의 계좌로부터 타인의 계좌로 자금을 송금합니다 <br>출금할 계좌를 선택하세요</p><br>
-      </div>
-    </section>
-    <!-- End Featured Services Section -->
     
-    <!-- ======= Featured Services Section ======= -->
-    <section id="featured-services" class="featured-services section-bg">
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
       <div class="container">
-        <div class="row no-gutters">
-          <div class="col-lg-4 col-md-6" style="width:50%;">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-laptop"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6" style="width:50%;">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-briefcase"></i></div>
-              <h4 class="title"><a href="">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Featured Services Section -->
-     <!-- ======= Breadcrumbs ======= -->
-    <section class="breadcrumbs" style="background: #ffffff;">
-      <div class="container">
-      <form>
-        <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
-          <h2>&nbsp;</h2><br>
-          <ol style="font-size: 16px;">
-            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom'><option>추천순</option></select></li>
-          </ol>
-        </div>
-      </form>
-      </div>
-    </section><!-- End Breadcrumbs -->
-    
-    <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
-      <div class="container">
-
-        <div class="row no-gutters">
-		 <!--<div class="savingsCustom">-->
-		  <c:forEach var="savingsVO" items="${savingslist}" varStatus="status">
-			<div class="col-lg-4 col-md-6 content-item" style="width:70%; border-bottom:0px;">
-			<c:if test="${savingsVO.sv_type.equals('D')}">
-	            <span style="font-size: 18px;">예금</span>
-			</c:if>
-			<c:if test="${savingsVO.sv_type.equals('I')}">
-	            <span style="font-size: 18px;">적금</span>
-			</c:if>
-            <h4 style="margin-top: 10px; margin-bottom: 10px;">
-            	<c:out value="${savingsVO.sv_name}" />
-            </h4>
-            <p>
-            금리 : <c:out value="${savingsVO.sv_interest}" /> %<br>
-            기간 : <fmt:parseNumber value="${savingsVO.sv_term/30}" integerOnly="true" /> 개월
-            </p>
-          	</div>
-          	<div style="width:30%; text-align:center; margin:auto;">
-          	<div style="display:inline-block; text-align:center;">
-          	<button class='btn btn60' onclick='infobtn(${status.index})'>상세보기</button>
-          	<button class='btn btn60' onclick='reqbtn(${savingsVO.sv_seq})'>가입하기</button>
-          	</div>
-          	</div>
-          
-          	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
-           		단리 / 복리 : <c:out value="${savingsVO.sv_interest_type}" /><br>
-           		고정금리 / 변동금리 : 고정금리<br>
-           		최소납입금 : 1,000,000 원
-           		<!-- 테이블을 만드는게 나은가.. -->
-          	</div>
-		  </c:forEach>
-		  
-		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
-            <span>01</span>
-            <h4>Lorem Ipsum</h4>
-            <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>03</span>
-            <h4> Ad ad velit qui</h4>
-            <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>04</span>
-            <h4>Repellendus molestiae</h4>
-            <p>Inventore quo sint a sint rerum. Distinctio blanditiis deserunt quod soluta quod nam mider lando casa</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>05</span>
-            <h4>Sapiente Magnam</h4>
-            <p>Vitae dolorem in deleniti ipsum omnis tempore voluptatem. Qui possimus est repellendus est quibusdam</p>
-          </div>
-
-		 <!-- </div>-->
-        </div>
-
-      </div>
-    </section><!-- End Why Us Section -->
-	</main>
-  <!-- ======= Footer ======= -->
+        <div class="row">
+        <form action="transfer/check" method="POST">
+			<table class='table table-bordered'>
+			<!--<caption>송금 정보</caption>-->
+			<tr>
+				<th>상품명</th>
+				<td colspan='3'><input type='text' id='' name='' value='${OneP.get(0).sv_name} (${OneP.get(0).sv_seq})' class="form-control" readonly></td>
+			</tr>
+			<tr><th>내용</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="5" readonly>${OneP.get(0).sv_contents}</textarea></td></tr>
+			<tr>
+				<th>금리 (%)</th>
+				<td colspan='3'><input type='text' id='' name='' value='연 ${OneP.get(0).sv_interest}' class="form-control" readonly required></td>
+			</tr>
+			<tr>
+				<th>이자형태</th>
+				<td><input type='text'value='고정금리' class="form-control" readonly></td>
+				<td><input type='text'value='단리' class="form-control" readonly></td>
+				<td><input type='text'value='만기일시지급' class="form-control" readonly></td>
+			</tr>
+			<tr>
+				<th>연결 계좌</th>
+				<td colspan='3'>
+					<select class="form-control" id="selectAccount" required>
+						<option value="none">- 계좌 선택 - </option>
+				
+						<c:forEach var="i" begin="0" end="${fn:length(AllAc)-1}">
+							<option id='${fn:replace(AllAc.get(i).get('fintech_use_num'),'\"','')}'>
+								${fn:replace(AllAc.get(i).get('bank_name'),'\"','')} ${fn:replace(AllAc.get(i).get('account_num_masked'),'\"','')} 
+							</option>
+						</c:forEach> 
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>납입금액<br>(단위 : 원)</th>
+				<td colspan='3'><input type='text' id='amount' name='amount' class="form-control" required></td>
+			</tr>
+			<tr>
+			  <c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
+				<th>납입일</th>
+				<td><select class="form-control"><option>매월</option></select></td>
+				<td colspan='2'><select class="form-control"><option>1일</option><option>2일</option><option>3일</option></select></td>
+			  </c:if>
+			  <c:if test="${OneP.get(0).sv_payment_type.equals('D')}">
+				<th>납입일</th>
+				<td colspan='3'><input type='text' class='form-control' value='매일' readonly/>
+			  </c:if>
+			</tr>
+			<tr>
+				<td colspan='4'><input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
+			</tr>
+			<tr style=" text-align: right;">
+				<td colspan='4'><button type='button' class='btn' onclick='btnclick()'>신청</button>
+			</tr>
+		</table>
+	</form>
+    </div>
+     </div>
+    </section><!-- End About Us Section -->
+  </main>
+    <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
       <h3>Green</h3>
       <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
-      <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
       <div class="copyright">
         &copy; Copyright <strong><span>Green</span></strong>. All Rights Reserved
       </div>
@@ -295,23 +228,17 @@
       </div>
     </div>
   </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
   
-<script>
-	function infobtn(idx){
-		console.log("button click");
-		$("#infodiv"+idx).show();
-	}
-	
-	function reqbtn(sv_seq){
-		console.log(sv_seq);
-		location.href='http://172.21.200.26:8081/bank/savingform?sv_seq='+sv_seq;
-	}
-</script>
-</body>
-
-</html>
+  
+  <script>
+  function btnclick(){
+	  var sv_seq = ${param.sv_seq};
+	  var finnum = $("#selectAccount option:selected").attr('id');
+	  var amount = $("#amount").val();
+	  var date   = $("#date").val();
+	  
+	  console.log(sv_seq, finnum, amount, date);
+  }
+  </script>
 </body>
 </html>

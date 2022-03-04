@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.hb.domain.Savings;
 import com.hb.domain.Used;
 import com.hb.domain.User;
+import com.hb.domain.svJud;
 
 @Mapper
 public interface MainMapper {
@@ -24,4 +25,6 @@ public interface MainMapper {
 	public List<Savings> savingSelectOne(int sv_seq);
 	
 	public void savingForm(Used used);
+	
+	public List<svJud> savingStatus(String user_seq_no);
 }

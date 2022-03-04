@@ -74,7 +74,7 @@
             <ul>
               <li><a href="/bank/savingsdeposit">예금</a></li>
               <li><a href="/bank/savingsinstallment">적금</a></li>
-              <li><a href="#">가입상품보기</a></li>
+              <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
@@ -102,7 +102,7 @@
             <ul>
               <li><a href="/bank/savingsdeposit">예금</a></li>
               <li><a href="/bank/savingsinstallment">적금</a></li>
-              <li><a href="#">가입상품보기</a></li>
+              <li><a href="/bank/inner">가입상품보기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>

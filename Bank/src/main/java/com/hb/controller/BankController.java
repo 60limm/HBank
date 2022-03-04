@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.hb.domain.Savings;
 import com.hb.domain.Used;
 import com.hb.domain.User;
+import com.hb.domain.svJud;
 import com.hb.mapper.MainMapper;
 
 
@@ -312,8 +313,18 @@ public class BankController{
 		
 		//데이터 가공 후 insert 
 		mapper.savingForm(usedvo);
-		return "savingResult";
+		return "redirect:savingStatus";
 	}
+	
+	@RequestMapping("savingStatus")
+	public String savingStatus(svJud svJud, Model model) {
+		
+		List<svJud> myproduct = mapper.savingStatus(LoadSession().getUser_seq_no());
+		model.addAttribute("MyP",myproduct);
+		
+		return "savingStatus";
+	}
+	
 }
 
 

@@ -42,4 +42,11 @@
 		SELECT * FROM tbl_savings
 		WHERE sv_type = 'I'
 	</select>
+	
+	<select id="savingStatus" parameterType="String" resultType="com.hb.domain.svJud">
+		SELECT * 
+		FROM tbl_savings sv, tbl_used u
+		WHERE sv.sv_seq = u.used_service_seq
+		AND u.used_usernum = #{user_seq_no}
+	</select>
 </mapper>

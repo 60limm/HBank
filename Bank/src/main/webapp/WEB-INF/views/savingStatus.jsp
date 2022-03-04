@@ -125,7 +125,7 @@
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Product</li>
-            <li>Result</li>
+            <li>Status</li>
           </ol>
         </div>
       </div>
@@ -134,38 +134,58 @@
     <section id="featured-services" class="featured-services section-bg">
       <div class="section-title">
       	  <br><br>
-          <h2>상품</h2>
-          <p>신청 결과를 확인하세요</p><br>
+          <h2>상품 신청 내역</h2>
+          <p>싱품 신청 현황을 확인하세요</p><br>
       </div>
     </section>
     <!-- End Featured Services Section -->
     
-	<!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
+	<!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
       <div class="container">
-		<br><br>
-        <div class="row no-gutters">
 
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>01</span>
-            <h4>출금이체</h4>
-            <p>이용기관이 사용자 계좌로부터 대금을 출금합니다.</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>02</span>
-            <h4>수취인검증</h4>
-            <p>자금을 수취하는 사람이 입금요청한 계좌의 예금주와 동일인인지 비교합니다. </p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>03</span>
-            <h4>입금이체</h4>
-            <p>이용기관이 사용자의 계좌로 대금을 송금합니다.</p>
-          </div>
-        </div>
+      <div class="container">
+		
+		<c:if test="${fn:length(MyP)==0}">
+			<div class="section-title">
+				<br><p>가입한 상품이 없습니다.</p><br>
+				<p><a href='/bank/savings'>금융상품 보기</a>
+			</div>
+		</c:if>
+		
+		<c:if test="${fn:length(MyP)!=0}">
+		
+			<table class='table' id='1sttable'>
+			<tr>
+				<th>th1</th>
+				<th>th2</th>
+				<th>th3</th>
+				<th>th4</th>
+				<th>상태</th>
+			</tr>
+			
+			<c:forEach var="i" begin="0" end="${fn:length(MyP)-1}">
+				<tr id='balanceTR${i}' ">
+					<td style="padding-top: 20px;padding-bottom: 20px;">${MyP.get(i).sv_name }</td>
+					<!--<td>${MyP.get(i).used_finnum }</td>-->
+					<td>${MyP.get(i).used_service_seq }</td>
+					<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='''>잔액조회</button></td>
+					<td style="width: 216px;"><button class='btn btn60' id="btnT${i}" onclick=''>변경</button></td>
+					<td>${MyP.get(i).used_status }</td>
+				</tr>
+				<tr>
+					<td colspan='5' class='balanceTD' id='balanceTD${i}'><div class='balanceDIV' id='balanceDIV${i}'></div></td>
+				</tr>
+			</c:forEach>
+			</table>
+			
+		</c:if>
+		
+		
       </div>
-    </section><!-- End Why Us Section -->
+      
+      </div>
+    </section><!-- End About Us Section -->
 	
     <!-- ======= About Us Section ======= -->
     <section id="about" class="about">

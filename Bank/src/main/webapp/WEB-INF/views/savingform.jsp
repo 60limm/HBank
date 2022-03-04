@@ -53,7 +53,6 @@
     }	
 </style>
 <body>
-${param.sv_seq}
 <!-- ------------ -->
 <!-- Vendor JS Files -->
   <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1" />"></script>
@@ -89,9 +88,9 @@ ${param.sv_seq}
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
-              <li><a href="#">가입상품보기</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
@@ -117,9 +116,9 @@ ${param.sv_seq}
           </li>
           <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savings">예금</a></li>
-              <li><a href="/bank/savings">적금</a></li>
-              <li><a href="#">가입상품보기</a></li>
+              <li><a href="/bank/savingsdeposit">예금</a></li>
+              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/inner">가입상품보기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>

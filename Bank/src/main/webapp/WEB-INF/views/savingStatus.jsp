@@ -157,34 +157,47 @@
 		
 			<table class='table' id='1sttable'>
 			<tr>
-				<th>th1</th>
-				<th>th2</th>
-				<th>th3</th>
-				<th>th4</th>
+				<th>상품명</th>
+				<th>구분</th>
+				<th>연결 은행</th>
+				<th>연결 계좌</th>
+				<th>신청 날짜 </th>
+				<th>만기 날짜 </th>
 				<th>상태</th>
 			</tr>
 			
 			<c:forEach var="i" begin="0" end="${fn:length(MyP)-1}">
-				<tr id='balanceTR${i}' ">
+				<tr id='balanceTR${i}'>
 					<td style="padding-top: 20px;padding-bottom: 20px;">${MyP.get(i).sv_name }</td>
-					<!--<td>${MyP.get(i).used_finnum }</td>-->
-					<td>${MyP.get(i).used_service_seq }</td>
-					<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='''>잔액조회</button></td>
-					<td style="width: 216px;"><button class='btn btn60' id="btnT${i}" onclick=''>변경</button></td>
+					
+					<c:if test="${MyP.get(i).sv_type.equals('D')}">
+			            <td>예금</td>
+					</c:if>
+					<c:if test="${MyP.get(i).sv_type.equals('I')}">
+			            <td>적금</td>
+					</c:if>
+					
+					<c:forEach var="j" begin="0" end="${fn:length(AllAc)-1}">
+						<c:if test="${fn:replace(AllAc.get(j).get('fintech_use_num'),'\"','') eq MyP.get(i).used_finnum }">
+							<td>${fn:replace(AllAc.get(j).get('bank_name'),'\"','')}</td>
+							<td>${fn:replace(AllAc.get(j).get('account_num_masked'),'\"','')}</td>
+						</c:if>
+					</c:forEach>
+					<td>${MyP.get(i).used_regdate}</td>
+					<td>${MyP.get(i).used_maturity}</td>
 					<td>${MyP.get(i).used_status }</td>
-				</tr>
-				<tr>
-					<td colspan='5' class='balanceTD' id='balanceTD${i}'><div class='balanceDIV' id='balanceDIV${i}'></div></td>
 				</tr>
 			</c:forEach>
 			</table>
-			
 		</c:if>
-		
-		
       </div>
       
       </div>
+      
+      <div class="section-title">
+      	<br><br><p><a href='/bank/savings'>금융상품 더보기</a>
+	  </div>
+			
     </section><!-- End About Us Section -->
 	
     <!-- ======= About Us Section ======= -->

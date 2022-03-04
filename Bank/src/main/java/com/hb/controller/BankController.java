@@ -322,6 +322,11 @@ public class BankController{
 		List<svJud> myproduct = mapper.savingStatus(LoadSession().getUser_seq_no());
 		model.addAttribute("MyP",myproduct);
 		
+		//사용자 계좌 리스트 불러오기
+		List<JsonObject> JsonList_final = LoadAccountList();
+		System.out.println(JsonList_final);
+		model.addAttribute("AllAc", JsonList_final);
+		
 		return "savingStatus";
 	}
 	

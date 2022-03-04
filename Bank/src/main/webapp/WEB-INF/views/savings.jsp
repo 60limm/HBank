@@ -241,10 +241,18 @@
           	</div>
           
           	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
-           		단리 / 복리 : <c:out value="${savingsVO.sv_interest_type}" /><br>
-           		고정금리 / 변동금리 : 고정금리<br>
-           		최소납입금 : 1,000,000 원
-           		<!-- 테이블을 만드는게 나은가.. -->
+           		<table class='table'>
+           			<tr><th style='width:25%'>상품 설명</th><td><c:out value="${savingsVO.sv_contents}" /></td></tr>
+           			<tr><th>가입 대상</th><td><c:out value="${savingsVO.sv_target}" /></td></tr>
+           			<tr><th>이자 형태</th><td>
+	           			<c:if test="${savingsVO.sv_interest_type eq 'simple'}">단리</c:if>
+	           			<c:if test="${savingsVO.sv_interest_type eq 'compound'}">복리</c:if>
+	           			/ 고정금리 / <c:out value="${savingsVO.sv_return_type}" /></td></tr>
+           			<tr><th>납입금</th><td>최소 <c:out value="${savingsVO.sv_limit_min}" /> 원 ~ 최대 <c:out value="${savingsVO.sv_limit_max}" />원</td></tr>
+           			<tr><th>납입 형태</th><td><fmt:parseNumber value="${savingsVO.sv_term/30}" integerOnly="true" /> 개월 / 
+           				<c:if test="${savingsVO.sv_payment_type eq 'M'}">매월</c:if>
+           				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if></td></tr>
+           		</table>
           	</div>
 		  </c:forEach>
 		  

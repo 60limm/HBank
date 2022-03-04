@@ -68,8 +68,13 @@ http://172.21.200.26:8081/bank/home </br>
 
 <hr>
 
-- 간략한 프로세스 설명 피피티
-(우선 내림)
+- Product
+![image](https://user-images.githubusercontent.com/90125028/156714208-28056713-6702-4431-9f05-c4a775309434.png)
+
+- Product/Status
+![image](https://user-images.githubusercontent.com/90125028/156714776-2887e69f-2e70-4728-aaa5-db992a6af541.png)
+
+
 
 
 이 외에도 한 땀 한 땀 신경쓴 기능, 디테일들이 많으나 여기에선 생략..
@@ -92,5 +97,6 @@ http://172.21.200.26:8081/bank/home </br>
 
 <hr>
 [Bank.zip](https://github.com/60limm/HBank/files/8094327/Bank.zip)
+[Bank0304.zip](https://github.com/60limm/HBank/files/8183694/Bank0304.zip)
 
 

@@ -163,7 +163,7 @@
       <div class="section-title">
       	  <br><br>
           <h2>금융상품</h2>
-          <p>사용자의 계좌로부터 타인의 계좌로 자금을 송금합니다 <br>출금할 계좌를 선택하세요</p><br>
+          <p>HBank의 추천 상품을 소개합니다<br>원하시는 상품을 찾아보세요</p><br>
       </div>
     </section>
     <!-- End Featured Services Section -->
@@ -176,14 +176,14 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-laptop"></i></div>
               <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <!--<p class="description">일정 기간을 정해놓고 돈을 예치합니다</p>-->
             </div>
           </div>
           <div class="col-lg-4 col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-briefcase"></i></div>
               <h4 class="title"><a href="/bank/savingsinstallment">적금</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+              <!-- <p class="description">정해진 기간동안 일정액을 매월/매일 예치합니다.</p>-->
             </div>
           </div>
         </div>

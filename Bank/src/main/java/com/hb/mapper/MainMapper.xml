@@ -36,11 +36,11 @@
 	
 	<select id="depositlist" resultType="com.hb.domain.Savings">
 		SELECT * FROM tbl_savings
-		WHERE sv_type = 'D'
+		WHERE sv_type = '예금'
 	</select>
 	<select id="installmentlist" resultType="com.hb.domain.Savings">
 		SELECT * FROM tbl_savings
-		WHERE sv_type = 'I'
+		WHERE sv_type = '적금'
 	</select>
 	
 	<select id="savingStatus" parameterType="String" resultType="com.hb.domain.svJud">

@@ -168,25 +168,25 @@
     </section>
     <!-- End Featured Services Section -->
     
-    <!-- ======= Featured Services Section ======= -->
+    <!-- ======= Featured Services Section ======= 
     <section id="featured-services" class="featured-services section-bg">
       <div class="container">
         <div class="row no-gutters">
           <div class="col-lg-4 col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-laptop"></i></div>
-              <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>
+              <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>-->
               <!--<p class="description">일정 기간을 정해놓고 돈을 예치합니다</p>-->
-            </div>
+            <!--</div>
           </div>
           <div class="col-lg-4 col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-briefcase"></i></div>
               <h4 class="title"><a href="/bank/savingsinstallment">적금</a></h4>
               <!-- <p class="description">정해진 기간동안 일정액을 매월/매일 예치합니다.</p>-->
-            </div>
+            <!--</div>
           </div>
-        </div>
+        </div>-->
 
       </div>
     </section><!-- End Featured Services Section -->
@@ -197,7 +197,7 @@
         <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
           <h2>&nbsp;</h2><br>
           <ol style="font-size: 16px;">
-            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom'><option>추천순</option></select></li>
+            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom'><option>추천순</option><option>이름순</option></select></li>
           </ol>
         </div>
       </form>
@@ -222,16 +222,28 @@
             	<c:out value="${savingsVO.sv_name}" />
             </h4>
             <p>
-            금리 : <c:out value="${savingsVO.sv_interest}" /> %<br>
-            기간 : <fmt:parseNumber value="${savingsVO.sv_term/30}" integerOnly="true" /> 개월
+            <c:choose>
+            	<c:when test="${savingsVO.sv_interest_36!=0}">
+            		최고 금리 : <c:out value="${savingsVO.sv_interest_36}" /> %<br>
+            	</c:when>
+            	<c:when test="${savingsVO.sv_interest_24!=0}">
+            		최고 금리 : <c:out value="${savingsVO.sv_interest_24}" /> %<br>
+            	</c:when>
+            	<c:when test="${savingsVO.sv_interest_12!=0}">
+            		최고 금리 : <c:out value="${savingsVO.sv_interest_12}" /> %<br>
+            	</c:when>
+            	<c:otherwise>
+            		최고 금리 : <c:out value="${savingsVO.sv_interest_6}" /> %<br>
+            	</c:otherwise>
+            </c:choose>
             </p>
           	</div>
           	<div style="width:30%; text-align:center; margin:auto;">
           	<div style="display:inline-block; text-align:center;">
-          	<button class='btn btn60' onclick='infobtn(${status.index})'>상세보기</button>
+          	<button class='btn btn60 infobtn' onclick='infobtn(${status.index})' id='infobtn_${status.index}'>상세보기</button>
           	
           	<c:if test="${user_info!=null}">
-          	<button class='btn btn60' onclick='reqbtn(${savingsVO.sv_seq})'>가입하기</button>
+          	<button class='btn btn60' onclick='reqbtn(${savingsVO.sv_seq})' id='reqbtn'>가입하기</button>
           	</c:if>
           	<c:if test="${user_info==null}">
           	<button class='btn btn60' onclick='nologin()'>가입하기</button>
@@ -242,14 +254,27 @@
           
           	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
            		<table class='table'>
-           			<tr><th style='width:25%'>상품 설명</th><td><c:out value="${savingsVO.sv_contents}" /></td></tr>
-           			<tr><th>가입 대상</th><td><c:out value="${savingsVO.sv_target}" /></td></tr>
+           			<tr><th style='width:25%'>상품 설명</th><td>${fn:replace(savingsVO.sv_contents, '다.', '다.<br/>')}</td></tr>
+           			<tr><th>가입 대상</th><td>${fn:replace(savingsVO.sv_target, '다.', '다.<br/>')}</td></tr>
            			<tr><th>이자 형태</th><td>
 	           			<c:if test="${savingsVO.sv_interest_type eq 'simple'}">단리</c:if>
 	           			<c:if test="${savingsVO.sv_interest_type eq 'compound'}">복리</c:if>
-	           			/ 고정금리 / <c:out value="${savingsVO.sv_return_type}" /></td></tr>
-           			<tr><th>납입금</th><td>최소 <c:out value="${savingsVO.sv_limit_min}" /> 원 ~ 최대 <c:out value="${savingsVO.sv_limit_max}" />원</td></tr>
-           			<tr><th>납입 형태</th><td><fmt:parseNumber value="${savingsVO.sv_term/30}" integerOnly="true" /> 개월 / 
+	           			/ 고정금리 / <c:out value="${savingsVO.sv_return_type}" />
+	           			<br><br>
+	           			<!-- 기간별 금리표 삽입 -->
+	           			<table class='table table-bordered' style="width:50%">
+	           			<caption align='right'>연 이율 ( 세전, % )</caption>
+	           				<c:if test="${savingsVO.sv_interest_6!=0}"> <tr align='center'><td style='width:30%'>6개월 </td><th>${savingsVO.sv_interest_6} </th></tr></c:if>
+	           				<c:if test="${savingsVO.sv_interest_12!=0}"><tr align='center'><td style='width:30%'>12개월</td><th>${savingsVO.sv_interest_12} </th></tr></c:if>
+	           				<c:if test="${savingsVO.sv_interest_24!=0}"><tr align='center'><td style='width:30%'>24개월</td><th>${savingsVO.sv_interest_24} </th></tr></c:if>
+	           				<c:if test="${savingsVO.sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${savingsVO.sv_interest_36} </th></tr></c:if>
+	           			</table>
+	           		</td></tr>
+	           		<tr><th>최대 납입금</th><td>
+	           		<c:if test="${savingsVO.sv_limit_max!=0}"><fmt:formatNumber value="${savingsVO.sv_limit_max}" pattern="#,###" /> 원</c:if>
+	           		<c:if test="${savingsVO.sv_limit_max==0}">최고 한도 없음</c:if>
+           			</td></tr>
+           			<tr><th>납입 형태</th><td>
            				<c:if test="${savingsVO.sv_payment_type eq 'M'}">매월</c:if>
            				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if></td></tr>
            		</table>
@@ -315,9 +340,35 @@
 
   
 <script>
+	var btnstatus = 100;
+	
 	function infobtn(idx){
-		console.log("button click");
-		$("#infodiv"+idx).show();
+		
+		$(".infoDIV").hide();
+		//alert("idx="+idx+" btnstatus="+btnstatus);
+		if (btnstatus==100){
+			
+			$("#infobtn_"+idx).html('상세접기');
+			$("#infodiv"+idx).show();
+	
+			btnstatus = idx;
+			
+		} else if (btnstatus == idx){
+			
+			$("#infobtn_"+idx).html('상세보기');
+			$("#infodiv"+idx).hide();
+			
+			btnstatus = 100;
+			
+		} else if (btnstatus != idx){
+			$(".infobtn").html('상세보기');
+			
+			$("#infobtn_"+idx).html('상세접기');
+			$("#infodiv"+idx).show();
+	
+			btnstatus = idx;
+		}
+		
 	}
 	
 	function reqbtn(sv_seq){

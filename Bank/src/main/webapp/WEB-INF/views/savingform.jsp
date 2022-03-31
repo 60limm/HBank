@@ -158,10 +158,21 @@
 				<th>상품명</th>
 				<td colspan='3'><input type='text' id='' name='' value='${OneP.get(0).sv_name} (${OneP.get(0).sv_seq})' class="form-control" readonly></td>
 			</tr>
+			<tr><th>가입대상</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="1" readonly>${OneP.get(0).sv_target}</textarea></td></tr>
 			<tr><th>내용</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="5" readonly>${OneP.get(0).sv_contents}</textarea></td></tr>
 			<tr>
-				<th>금리 (%)</th>
-				<td colspan='3'><input type='text' id='' name='' value='연 ${OneP.get(0).sv_interest}' class="form-control" readonly required></td>
+				<th>금리</th>
+				<!-- <td colspan='3'><input type='text' id='' name='' value='연 ' class="form-control" readonly required></td> -->
+				<td colspan='3'>
+						<!-- 기간별 금리표 삽입 -->
+						<br>
+	           			<table class='table table-bordered' style="width:50%" align='center'>
+	           			<caption align='right'>연 이율 ( 세전, % )</caption>
+	           				<c:if test="${OneP.get(0).sv_interest_6!=0}"> <tr align='center'><td style='width:30%'>6개월 </td><th>${OneP.get(0).sv_interest_6} </th><td><input type="radio" name="used_period" value="6" onclick='periodLoad(6)'></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_12!=0}"><tr align='center'><td style='width:30%'>12개월</td><th>${OneP.get(0).sv_interest_12} </th><td><input type="radio" name="used_period" value="12" onclick='periodLoad(12)'></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_24!=0}"><tr align='center'><td style='width:30%'>24개월</td><th>${OneP.get(0).sv_interest_24} </th><td><input type="radio" name="used_period" value="24" onclick='periodLoad(24)'></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${OneP.get(0).sv_interest_36} </th><td><input type="radio" name="used_period" value="36" onclick='periodLoad(36)'></td></tr></c:if>
+	           			</table></td>
 			</tr>
 			<tr>
 				<th>이자형태</th>
@@ -169,10 +180,11 @@
 				<td><input type='text'value='단리' class="form-control" readonly></td>
 				<td><input type='text'value='만기일시지급' class="form-control" readonly></td>
 			</tr>
+			<tr><th>가입기간</th><td colspan='3'> <input type='date' id='used_regdate' class='form-control' readonly required/>~<input type='date' id='used_maturity' class='form-control' readonly required/></td></tr>
 			<tr>
 				<th>연결 계좌</th>
 				<td colspan='3'>
-					<select class="form-control" id="selectAccount" required>
+					<select class="form-control" id="selectAccount" required >
 						<option value="none">- 계좌 선택 - </option>
 				
 						<c:forEach var="i" begin="0" end="${fn:length(AllAc)-1}">
@@ -185,16 +197,16 @@
 			</tr>
 			<tr>
 				<th>납입금액<br>(단위 : 원)</th>
-				<td colspan='3'><input type='text' id='used_payment_amount' name='used_payment_amount' class="form-control" required></td>
+				<td colspan='3'><input type='text' id='used_payment_amount' name='used_payment_amount' class="form-control" required /></td>
 			</tr>
 			<tr>
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
 				<th>납입일</th>
 				<td><select class="form-control"><option>매월</option></select></td>
 				<td colspan='2'><select class="form-control" name='used_payment_date'>
-				<option value='1'>1일</option><option value='2'>2일</option><option value='3'>3일</option>
-				<option value='4'>4일</option><option value='5'>5일</option><option value='6'>6일</option>
-				<option value='7'>7일</option><option value='8'>8일</option><option value='9'>9일</option>
+				<option value='1'>  1일</option><option value='2'>  2일</option><option value='3'>  3일</option>
+				<option value='4'>  4일</option><option value='5'>  5일</option><option value='6'>  6일</option>
+				<option value='7'>  7일</option><option value='8'>  8일</option><option value='9'>  9일</option>
 				<option value='10'>10일</option><option value='11'>11일</option><option value='12'>12일</option>
 				<option value='13'>13일</option><option value='14'>14일</option><option value='15'>15일</option>
 				<option value='16'>16일</option><option value='18'>18일</option><option value='18'>18일</option>
@@ -209,16 +221,20 @@
 				<td colspan='3'><input type='text' class='form-control' value='매일' readonly/>
 				<input type='hidden' id='used_payment_date' name='used_payment_date' value='D'>
 			  </c:if>
+			  <c:if test="${OneP.get(0).sv_payment_type.equals('I')}">
+			    <th>납입일</th>
+				<td colspan='3'><input type='text' class='form-control' value='즉시' readonly/>
+				<input type='hidden' id='used_payment_date' name='used_payment_date' value='I'>
+			  </c:if>
 			</tr>
 			<tr>
 				<td colspan='4'><input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
-				<input type='hidden' id='used_finnum' name='used_finnum'>
 				<input type='hidden' id='used_service_seq' name='used_service_seq' value='${param.sv_seq}'>
 				<input type='hidden' id='used_usernum' name='used_usernum' value='${user_info.user_seq_no}'>
-				<input type='hidden' id='used_maturity' name='used_maturity'>
+				<input type='hidden' id='used_finnum' name='used_finnum'>
 			</tr>
 			<tr style=" text-align: right;">
-				<td colspan='4'><button type='button' class='btn' onclick='btnclick()'>신청</button>
+				<td colspan='4'><button type='button' class='btn' onclick='btnclick(${param.sv_seq})'>신청</button>
 			</tr>
 		</table>
 	</form>
@@ -247,6 +263,16 @@
   
   
   <script>
+  let date = new Date();
+  document.getElementById('used_regdate').value = date.toISOString().substring(0, 10);
+  
+  function periodLoad(periodMonth){
+	  /*선택한 금리에 따라 가입기간 적용되도록*/
+	  
+	  let date2 = new Date();
+	  date2.setMonth(date2.getMonth() + periodMonth);
+	  document.getElementById('used_maturity').value = date2.toISOString().substring(0, 10);
+  }
   
   function formatDate(){
 	  var d = new Date(),
@@ -262,17 +288,25 @@
 	  return [year,month,day].join('-');
   }
   
-  function btnclick(){
-	  var used_finnum		  = $("#selectAccount option:selected").attr('id');
+  function btnclick(sv_seq){
+	  //유효성체크 하기.. 왜 required 안되징
+	  console.log($("#used_regdate").val());
+	  var rate_month = $('input:radio[name=used_period]:checked').val(); // 체크된 값(checked value)
+	  console.log(rate_month);
 	  
-	  $("#used_finnum").val(used_finnum);
-	  $("#used_maturity").val('2024-01-01');
+	  if(isNaN(rate_month)){
+		  alert("기간이 선택되지 않았습니다.");
+		  location.href="http://172.21.200.26:8081/bank/savingformLoad?sv_seq="+sv_seq;
+	  }else{
+		  var used_finnum = $("#selectAccount option:selected").attr('id');
+		  $("#used_finnum").val(used_finnum);
+	  	  $("#savingform").submit();
+		  alert("신청이 완료되었습니다\n신청현황 보러가기");
+	  }
 	  
-	  $("#savingform").submit();
-	  alert("신청이 완료되었습니다\n신청현황 보러가기");
-	  /*console.log(${OneP.get(0).sv_term});
-	  console.log(${OneP.get(0).sv_term/360});
-	  console.log(new Date());
+	  
+	  
+	  /*console.log(new Date());
 	  console.log(formatDate());*/
   }
   </script>

@@ -248,9 +248,10 @@
           	<c:if test="${user_info==null}">
           	<button class='btn btn60' onclick='nologin()'>가입하기</button>
           	</c:if>
-
+			
           	</div>
           	</div>
+			
           
           	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
            		<table class='table'>
@@ -278,7 +279,7 @@
            				<c:if test="${savingsVO.sv_payment_type eq 'M'}">매월</c:if>
            				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if></td></tr>
            		</table>
-          	</div>
+          	</div><hr style="background-color: 	#008000; " >
 		  </c:forEach>
 		  
 		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
@@ -373,7 +374,27 @@
 	
 	function reqbtn(sv_seq){
 		console.log(sv_seq);
-		location.href='http://172.21.200.26:8081/bank/savingformLoad?sv_seq='+sv_seq;
+		
+		// 가입 form 띄우기 전에 내가 가입한 상품인지 먼저 확인하기
+		$.ajax({
+			type 	: 'GET',
+			url 	: 'http://172.21.200.26:8081/bank/savingCheck?sv_seq='+sv_seq,
+			dataType : "text",
+			success	: function(response){
+				
+				console.log(response);
+				
+				if(response=="0"){
+					// 폼 사이트로 이동
+					location.href='http://172.21.200.26:8081/bank/savingformLoad?sv_seq='+sv_seq;
+				}else{
+					alert("이미 가입한 상품입니다.");
+				}
+			},
+			error	: function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		})
 	}
 	
 	function nologin(){

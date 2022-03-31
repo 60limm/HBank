@@ -310,7 +310,7 @@ public class BankController{
 	
 	@RequestMapping(value= {"savingform"})
 	public String savingform(Model model, Used usedvo) {
-		
+		System.out.println(usedvo.getUsed_regdate()); //왜 null일까..
 		//데이터 가공 후 insert 
 		mapper.savingForm(usedvo);
 		return "redirect:savingStatus";
@@ -330,6 +330,16 @@ public class BankController{
 		return "savingStatus";
 	}
 	
+	@RequestMapping(value="savingCheck",produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String savingCheck(String sv_seq, Used used) {
+		int result = mapper.savingCheck(LoadSession().getUser_seq_no(), sv_seq);
+		
+		System.out.println("행 : "+result);
+		return Integer.toString(result);
+		
+		//return int는 안됨..string은 됨...ㅇㅅㅇ
+	}
 }
 
 

@@ -3,6 +3,7 @@ package com.hb.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.hb.domain.Savings;
 import com.hb.domain.Used;
@@ -21,10 +22,11 @@ public interface MainMapper {
 	public List<Savings> depositlist();
 	public List<Savings> installmentlist();
 	
-	
 	public List<Savings> savingSelectOne(int sv_seq);
 	
 	public void savingForm(Used used);
 	
 	public List<svJud> savingStatus(String user_seq_no);
+	
+	public int savingCheck(@Param("used_usernum")String used_usernum, @Param("used_service_seq")String used_service_seq);
 }

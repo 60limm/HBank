@@ -184,10 +184,10 @@
 				<tr id='balanceTR${i}'>
 					<td style="padding-top: 20px;padding-bottom: 20px;">${MyP.get(i).sv_name }</td>
 					
-					<c:if test="${MyP.get(i).sv_type.equals('D')}">
+					<c:if test="${MyP.get(i).sv_type.equals('예금')}">
 			            <td>예금</td>
 					</c:if>
-					<c:if test="${MyP.get(i).sv_type.equals('I')}">
+					<c:if test="${MyP.get(i).sv_type.equals('적금')}">
 			            <td>적금</td>
 					</c:if>
 					

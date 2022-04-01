@@ -49,6 +49,9 @@ public class BankController{
 	@Autowired
 	private com.hb.bank.transactionlistAPI transactionlistAPI;
 	
+	@Autowired
+	private com.hb.bank.exchangeAPI exchangeAPI;
+	
 	public User LoadSession() {
 		User user_info = (User)session.getAttribute("user_info");
 		return user_info;
@@ -339,6 +342,15 @@ public class BankController{
 		return Integer.toString(result);
 		
 		//return int는 안됨..string은 됨...ㅇㅅㅇ
+	}
+	
+	@RequestMapping("exchanges")
+	public String exchanges(Model model) {
+		
+		List<JsonObject> exchangeList = exchangeAPI.getExchanges();
+		model.addAttribute("exchangeList", exchangeList);
+		
+		return "exchanges";
 	}
 }
 

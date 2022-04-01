@@ -77,6 +77,11 @@
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
+            </ul>
+          </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
           <li><a class="getstarted scrollto" href="#" onclick='FnLogoutClick()'>Log out</a></li>
         </ul>
@@ -103,6 +108,11 @@
               <li><a href="/bank/savingsdeposit">예금</a></li>
               <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>

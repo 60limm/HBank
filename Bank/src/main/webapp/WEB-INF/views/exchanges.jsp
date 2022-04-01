@@ -60,6 +60,12 @@
   		padding: 4px 1.4em 4px 0.8em;
   		margin: 0;
     }
+    
+    th, td {
+        text-align: center !important;
+        vertical-align : middle !important;
+      }
+
 </style>
 <body>
 <script>
@@ -106,6 +112,11 @@
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
+            </ul>
+          </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
           <li><a class="getstarted scrollto" href="#" onclick='FnLogoutClick()'>Log out</a></li>
         </ul>
@@ -132,6 +143,11 @@
               <li><a href="/bank/savingsdeposit">예금</a></li>
               <li><a href="/bank/savingsinstallment">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>
@@ -162,8 +178,8 @@
     <section id="featured-services" class="featured-services section-bg">
       <div class="section-title">
       	  <br><br>
-          <h2>금융상품</h2>
-          <p>HBank의 추천 상품을 소개합니다<br>원하시는 상품을 찾아보세요</p><br>
+          <h2>환율</h2>
+          <p>국제환율 고시표</p><br>
       </div>
     </section>
     <!-- End Featured Services Section -->
@@ -196,9 +212,6 @@
       <form>
         <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
           <h2>&nbsp;</h2><br>
-          <ol style="font-size: 16px;">
-            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom'><option>추천순</option><option>이름순</option></select></li>
-          </ol>
         </div>
       </form>
       </div>
@@ -210,102 +223,38 @@
 
         <div class="row no-gutters">
 		 <!--<div class="savingsCustom">-->
-		  <c:forEach var="savingsVO" items="${savingslist}" varStatus="status">
-			<div class="col-lg-4 col-md-6 content-item" style="width:70%; border-bottom:0px;">
-			<c:if test="${savingsVO.sv_type.equals('D')}">
-	            <span style="font-size: 18px;">예금</span>
-			</c:if>
-			<c:if test="${savingsVO.sv_type.equals('I')}">
-	            <span style="font-size: 18px;">적금</span>
-			</c:if>
-            <h4 style="margin-top: 10px; margin-bottom: 10px;">
-            	<c:out value="${savingsVO.sv_name}" />
-            </h4>
-            <p>
-            <c:choose>
-            	<c:when test="${savingsVO.sv_interest_36!=0}">
-            		최고 금리 : <c:out value="${savingsVO.sv_interest_36}" /> %<br>
-            	</c:when>
-            	<c:when test="${savingsVO.sv_interest_24!=0}">
-            		최고 금리 : <c:out value="${savingsVO.sv_interest_24}" /> %<br>
-            	</c:when>
-            	<c:when test="${savingsVO.sv_interest_12!=0}">
-            		최고 금리 : <c:out value="${savingsVO.sv_interest_12}" /> %<br>
-            	</c:when>
-            	<c:otherwise>
-            		최고 금리 : <c:out value="${savingsVO.sv_interest_6}" /> %<br>
-            	</c:otherwise>
-            </c:choose>
-            </p>
-          	</div>
-          	<div style="width:30%; text-align:center; margin:auto;">
-          	<div style="display:inline-block; text-align:center;">
-          	<button class='btn btn60 infobtn' onclick='infobtn(${status.index})' id='infobtn_${status.index}'>상세보기</button>
-          	
-          	<c:if test="${user_info!=null}">
-          	<button class='btn btn60' onclick='reqbtn(${savingsVO.sv_seq})' id='reqbtn'>가입하기</button>
-          	</c:if>
-          	<c:if test="${user_info==null}">
-          	<button class='btn btn60' onclick='nologin()'>가입하기</button>
-          	</c:if>
-			
-          	</div>
-          	</div>
-			
-          
-          	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
-           		<table class='table'>
-           			<tr><th style='width:25%'>상품 설명</th><td>${fn:replace(savingsVO.sv_contents, '다.', '다.<br/>')}</td></tr>
-           			<tr><th>가입 대상</th><td>${fn:replace(savingsVO.sv_target, '다.', '다.<br/>')}</td></tr>
-           			<tr><th>이자 형태</th><td>
-	           			<c:if test="${savingsVO.sv_interest_type eq 'simple'}">단리</c:if>
-	           			<c:if test="${savingsVO.sv_interest_type eq 'compound'}">복리</c:if>
-	           			/ 고정금리 / <c:out value="${savingsVO.sv_return_type}" />
-	           			<br><br>
-	           			<!-- 기간별 금리표 삽입 -->
-	           			<table class='table table-bordered' style="width:50%">
-	           			<caption align='right'>연 이율 ( 세전, % )</caption>
-	           				<c:if test="${savingsVO.sv_interest_6!=0}"> <tr align='center'><td style='width:30%'>6개월 </td><th>${savingsVO.sv_interest_6} </th></tr></c:if>
-	           				<c:if test="${savingsVO.sv_interest_12!=0}"><tr align='center'><td style='width:30%'>12개월</td><th>${savingsVO.sv_interest_12} </th></tr></c:if>
-	           				<c:if test="${savingsVO.sv_interest_24!=0}"><tr align='center'><td style='width:30%'>24개월</td><th>${savingsVO.sv_interest_24} </th></tr></c:if>
-	           				<c:if test="${savingsVO.sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${savingsVO.sv_interest_36} </th></tr></c:if>
-	           			</table>
-	           		</td></tr>
-	           		<tr><th>최대 납입금</th><td>
-	           		<c:if test="${savingsVO.sv_limit_max!=0}"><fmt:formatNumber value="${savingsVO.sv_limit_max}" pattern="#,###" /> 원</c:if>
-	           		<c:if test="${savingsVO.sv_limit_max==0}">최고 한도 없음</c:if>
-           			</td></tr>
-           			<tr><th>납입 형태</th><td>
-           				<c:if test="${savingsVO.sv_payment_type eq 'M'}">매월</c:if>
-           				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if></td></tr>
-           		</table>
-          	</div><hr style="background-color: 	#8FBC8F; " >
-		  </c:forEach>
-		  
+		  <jsp:useBean id="now" class="java.util.Date" />
+		  <fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일 HH:mm:ss" var="today" />
+
+		  조회 시각 : ${today} <br>
+		  환율 고시 : ${fn:replace(exchangeList.get(0).get("날짜"),'\"','')}
+		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
+		  	<table class="table table-striped table-bordered" style="table-layout:fixed">		  	
+		  		<tr >
+		  			<th rowspan='2'>통화명</th><th colspan='2'>현찰</th><th colspan='2'>송금</th>
+		  			<th rowspan='2'>매매기준율</th>
+		  		</tr>
+		  		<tr>
+		  			<th>사실 때</th><th>파실 때</th><th>전신환 보내실 때</th><th>전신환 받으실 때</th>
+		  		</tr>
+		  		<c:forEach var="i" begin="1" end="${fn:length(exchangeList)-1}">
+		  			<tr>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('통화명'),'\"','')} "></c:out></td>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('현찰사실때'),'\"','')} "></c:out></td>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('현찰파실때'),'\"','')} "></c:out></td>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('송금_전신환보내실때'),'\"','')} "></c:out></td>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('송금_전신환받으실때'),'\"','')} "></c:out></td>
+		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('매매기준율'),'\"','')} "></c:out></td>
+		  			</tr>
+		  		</c:forEach>
+		  		
+		  	</table>
+          </div>
 		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
             <span>01</span>
             <h4>Lorem Ipsum</h4>
             <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
           </div>
-          
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>03</span>
-            <h4> Ad ad velit qui</h4>
-            <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>04</span>
-            <h4>Repellendus molestiae</h4>
-            <p>Inventore quo sint a sint rerum. Distinctio blanditiis deserunt quod soluta quod nam mider lando casa</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>05</span>
-            <h4>Sapiente Magnam</h4>
-            <p>Vitae dolorem in deleniti ipsum omnis tempore voluptatem. Qui possimus est repellendus est quibusdam</p>
-          </div>
-
 		 <!-- </div>-->
         </div>
 
@@ -341,65 +290,11 @@
 
   
 <script>
-	var btnstatus = 100;
 	
-	function infobtn(idx){
-		
-		$(".infoDIV").hide();
-		//alert("idx="+idx+" btnstatus="+btnstatus);
-		if (btnstatus==100){
-			
-			$("#infobtn_"+idx).html('상세접기');
-			$("#infodiv"+idx).show();
 	
-			btnstatus = idx;
-			
-		} else if (btnstatus == idx){
-			
-			$("#infobtn_"+idx).html('상세보기');
-			$("#infodiv"+idx).hide();
-			
-			btnstatus = 100;
-			
-		} else if (btnstatus != idx){
-			$(".infobtn").html('상세보기');
-			
-			$("#infobtn_"+idx).html('상세접기');
-			$("#infodiv"+idx).show();
 	
-			btnstatus = idx;
-		}
-		
-	}
 	
-	function reqbtn(sv_seq){
-		console.log(sv_seq);
-		
-		// 가입 form 띄우기 전에 내가 가입한 상품인지 먼저 확인하기
-		$.ajax({
-			type 	: 'GET',
-			url 	: 'http://172.21.200.26:8081/bank/savingCheck?sv_seq='+sv_seq,
-			dataType : "text",
-			success	: function(response){
-				
-				console.log(response);
-				
-				if(response=="0"){
-					// 폼 사이트로 이동
-					location.href='http://172.21.200.26:8081/bank/savingformLoad?sv_seq='+sv_seq;
-				}else{
-					alert("이미 가입한 상품입니다.");
-				}
-			},
-			error	: function(request,status,error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		})
-	}
 	
-	function nologin(){
-		location.href='http://172.21.200.26:8081/bank/inner'
-	}
 	
 </script>
 </body>

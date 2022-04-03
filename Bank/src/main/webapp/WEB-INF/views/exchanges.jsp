@@ -231,7 +231,7 @@
 		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
 		  	<table class="table table-striped table-bordered" style="table-layout:fixed">		  	
 		  		<tr >
-		  			<th rowspan='2'>통화명</th><th colspan='2'>현찰</th><th colspan='2'>송금</th>
+		  			<th rowspan='2'>구분 / 통화표시</th><th colspan='2'>현찰</th><th colspan='2'>송금</th>
 		  			<th rowspan='2'>매매기준율</th>
 		  		</tr>
 		  		<tr>
@@ -239,7 +239,7 @@
 		  		</tr>
 		  		<c:forEach var="i" begin="1" end="${fn:length(exchangeList)-1}">
 		  			<tr>
-		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('통화명'),'\"','')} "></c:out></td>
+		  				<td><b><c:out value="${fn:replace(exchangeList.get(i).get('통화명'),'\"','')} "></c:out></b></td>
 		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('현찰사실때'),'\"','')} "></c:out></td>
 		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('현찰파실때'),'\"','')} "></c:out></td>
 		  				<td><c:out value="${fn:replace(exchangeList.get(i).get('송금_전신환보내실때'),'\"','')} "></c:out></td>

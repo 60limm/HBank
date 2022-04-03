@@ -41,7 +41,21 @@
   <!-- 제이쿼리 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script>
+  window.onload = function(){
+	  let date = new Date();
+	  document.getElementById('used_regdate').value = date.toISOString().substring(0, 10);
+  }
   
+  function periodLoad(periodMonth){
+	  /*선택한 금리에 따라 가입기간 적용되도록*/
+	  
+	  let date2 = new Date();
+	  date2.setMonth(date2.getMonth() + periodMonth);
+	  document.getElementById('used_maturity').value = date2.toISOString().substring(0, 10);
+  }
+  
+  </script>
 </head>
 <style>
 	th, td {
@@ -168,10 +182,10 @@
 						<br>
 	           			<table class='table table-bordered' style="width:50%" align='center'>
 	           			<caption align='right'>연 이율 ( 세전, % )</caption>
-	           				<c:if test="${OneP.get(0).sv_interest_6!=0}"> <tr align='center'><td style='width:30%'>6개월 </td><th>${OneP.get(0).sv_interest_6} </th><td><input type="radio" name="used_period" value="6" onclick='periodLoad(6)'></td></tr></c:if>
-	           				<c:if test="${OneP.get(0).sv_interest_12!=0}"><tr align='center'><td style='width:30%'>12개월</td><th>${OneP.get(0).sv_interest_12} </th><td><input type="radio" name="used_period" value="12" onclick='periodLoad(12)'></td></tr></c:if>
-	           				<c:if test="${OneP.get(0).sv_interest_24!=0}"><tr align='center'><td style='width:30%'>24개월</td><th>${OneP.get(0).sv_interest_24} </th><td><input type="radio" name="used_period" value="24" onclick='periodLoad(24)'></td></tr></c:if>
-	           				<c:if test="${OneP.get(0).sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${OneP.get(0).sv_interest_36} </th><td><input type="radio" name="used_period" value="36" onclick='periodLoad(36)'></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_6!=0}"> <tr align='center'><td style='width:30%'>6개월 </td><th>${OneP.get(0).sv_interest_6} </th><td><input type="radio" name="used_period" value="6" onclick='periodLoad(6)' required /></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_12!=0}"><tr align='center'><td style='width:30%'>12개월</td><th>${OneP.get(0).sv_interest_12} </th><td><input type="radio" name="used_period" value="12" onclick='periodLoad(12)' required /></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_24!=0}"><tr align='center'><td style='width:30%'>24개월</td><th>${OneP.get(0).sv_interest_24} </th><td><input type="radio" name="used_period" value="24" onclick='periodLoad(24)' required /></td></tr></c:if>
+	           				<c:if test="${OneP.get(0).sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${OneP.get(0).sv_interest_36} </th><td><input type="radio" name="used_period" value="36" onclick='periodLoad(36)' required /></td></tr></c:if>
 	           			</table></td>
 			</tr>
 			<tr>
@@ -185,7 +199,7 @@
 				<th>연결 계좌</th>
 				<td colspan='3'>
 					<select class="form-control" id="selectAccount" required >
-						<option value="none">- 계좌 선택 - </option>
+						<option value="">- 계좌 선택 - </option>
 				
 						<c:forEach var="i" begin="0" end="${fn:length(AllAc)-1}">
 							<option id='${fn:replace(AllAc.get(i).get('fintech_use_num'),'\"','')}'>
@@ -234,7 +248,7 @@
 				<input type='hidden' id='used_finnum' name='used_finnum'>
 			</tr>
 			<tr style=" text-align: right;">
-				<td colspan='4'><button type='button' class='btn' onclick='btnclick(${param.sv_seq})'>신청</button>
+				<td colspan='4'><button type='submit' class='btn' onclick='btnclick(${param.sv_seq})'>신청</button>
 			</tr>
 		</table>
 	</form>
@@ -263,16 +277,9 @@
   
   
   <script>
-  let date = new Date();
-  document.getElementById('used_regdate').value = date.toISOString().substring(0, 10);
   
-  function periodLoad(periodMonth){
-	  /*선택한 금리에 따라 가입기간 적용되도록*/
-	  
-	  let date2 = new Date();
-	  date2.setMonth(date2.getMonth() + periodMonth);
-	  document.getElementById('used_maturity').value = date2.toISOString().substring(0, 10);
-  }
+  
+  
   
   function formatDate(){
 	  var d = new Date(),
@@ -290,24 +297,23 @@
   
   function btnclick(sv_seq){
 	  //유효성체크 하기.. 왜 required 안되징
-	  console.log($("#used_regdate").val());
-	  var rate_month = $('input:radio[name=used_period]:checked').val(); // 체크된 값(checked value)
-	  console.log(rate_month);
+//	  console.log($("#used_regdate").val());
+//	  var rate_month = $('input:radio[name=used_period]:checked').val(); // 체크된 값(checked value)
+//	  console.log(rate_month);
 	  
-	  if(isNaN(rate_month)){
-		  alert("기간이 선택되지 않았습니다.");
-		  location.href="http://172.21.200.26:8081/bank/savingformLoad?sv_seq="+sv_seq;
-	  }else{
-		  var used_finnum = $("#selectAccount option:selected").attr('id');
-		  $("#used_finnum").val(used_finnum);
-	  	  $("#savingform").submit();
-		  alert("신청이 완료되었습니다\n신청현황 보러가기");
-	  }
+//	  if(isNaN(rate_month)){
+//		  alert("기간이 선택되지 않았습니다.");
+//		  location.href="http://172.21.200.26:8081/bank/savingformLoad?sv_seq="+sv_seq;
+//	  }else{
+//		  var used_finnum = $("#selectAccount option:selected").attr('id');
+//		  $("#used_finnum").val(used_finnum);
+	  	  //$("#savingform").submit();
+		  //alert("신청이 완료되었습니다\n신청현황 보러가기");
+//	  }
 	  
+	  var used_finnum = $("#selectAccount option:selected").attr('id');
+	  $("#used_finnum").val(used_finnum);
 	  
-	  
-	  /*console.log(new Date());
-	  console.log(formatDate());*/
   }
   </script>
 </body>

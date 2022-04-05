@@ -70,10 +70,10 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
@@ -103,10 +103,10 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
             </ul>
           </li>

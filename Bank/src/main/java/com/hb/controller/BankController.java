@@ -277,18 +277,25 @@ public class BankController{
 		return JsonList;
 	}
 	
-	@RequestMapping(value= {"savings","savingsdeposit","savingsinstallment"})
+	@RequestMapping(value= {"savingsR","savingsN", "savingsdepositN","savingsdepositR","savingsinstallmentN","savingsinstallmentR"})
 	public String savings(Model model, Savings savings, HttpServletRequest request) {
 		
 		List<Savings> savingslist = null;
+		System.out.println("요청path: "+request.getServletPath());
 		
 		//예적금 select reload, 전체 list load
-		if(request.getServletPath().equals("/savings")) {
-			savingslist = mapper.savingslist();
-		}else if(request.getServletPath().equals("/savingsdeposit")) {
-			savingslist = mapper.depositlist();
-		}else if(request.getServletPath().equals("/savingsinstallment")) {
-			savingslist = mapper.installmentlist();
+		if(request.getServletPath().equals("/savingsR")) {
+			savingslist = mapper.savingslistR();
+		}else if(request.getServletPath().equals("/savingsdepositR")) {
+			savingslist = mapper.depositlistR();
+		}else if(request.getServletPath().equals("/savingsinstallmentR")) {
+			savingslist = mapper.installmentlistR();
+//		}else if(request.getServletPath().equals("/savingsN")) {
+//			savingslist = mapper.savingslistN();
+//		}else if(request.getServletPath().equals("/savingsdepositN")) {
+//			savingslist = mapper.depositlistN();
+//		}else if(request.getServletPath().equals("/savingsinstallmentN")) {
+//			savingslist = mapper.installmentlistN();
 		}
 			
 		model.addAttribute("savingslist",savingslist);

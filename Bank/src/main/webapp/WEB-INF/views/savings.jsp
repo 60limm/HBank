@@ -42,9 +42,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <style>
-	
+	.material-icons{
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px;
+		display: inline-block;
+		line-height: 1;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normalr;
+		white-space: nowrap;
+		direction: ltr;
+		
+		-webkit-font-smoothing: antialiased;
+		
+		text-rendering: optimizeLegibility;
+		
+		-moz-osx-font-smoothing: grayscale;
+		
+		font-feature-setings: 'liga';
+	}
 	.btn60{
     	color: white !important;
     	border : 1px solid #5CB874 !important;
@@ -197,7 +218,7 @@
         <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
           <h2>&nbsp;</h2><br>
           <ol style="font-size: 16px;">
-            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom'><option>추천순</option><option>이름순</option></select></li>
+            <!-- <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange="OrderChange()"><option value="recommend">추천순</option><option value="name">이름순</option></select></li> -->
           </ol>
         </div>
       </form>
@@ -212,11 +233,11 @@
 		 <!--<div class="savingsCustom">-->
 		  <c:forEach var="savingsVO" items="${savingslist}" varStatus="status">
 			<div class="col-lg-4 col-md-6 content-item" style="width:70%; border-bottom:0px;">
-			<c:if test="${savingsVO.sv_type.equals('D')}">
-	            <span style="font-size: 18px;">예금</span>
+			<c:if test="${savingsVO.sv_type.equals('예금')}">
+	            <span style="font-size: 18px; width:5%; display:inline; vertical-align:middle;">예금&nbsp;&nbsp;</span><span class="material-icons" style='width:95%; display:inline; vertical-align:middle;'>monetization_on</span>
 			</c:if>
-			<c:if test="${savingsVO.sv_type.equals('I')}">
-	            <span style="font-size: 18px;">적금</span>
+			<c:if test="${savingsVO.sv_type.equals('적금')}">
+	            <span style="font-size: 18px; width:5%; display:inline; vertical-align:middle;">적금&nbsp;&nbsp;</span><span class="material-icons" style='width:95%; display:inline; vertical-align:middle;'>stairs</span>
 			</c:if>
             <h4 style="margin-top: 10px; margin-bottom: 10px;">
             	<c:out value="${savingsVO.sv_name}" />
@@ -255,7 +276,7 @@
           
           	<div class="col-lg-4 content-item infoDIV" id="infodiv${status.index}" style="width:100%;">
            		<table class='table'>
-           			<tr><th style='width:25%'>상품 설명</th><td>${fn:replace(savingsVO.sv_contents, '다.', '다.<br/>')}</td></tr>
+           			<tr><th style='width:25%'><br>상품 설명</th><td>${fn:replace(savingsVO.sv_contents, '-', '<br/>-')}</td></tr>
            			<tr><th>가입 대상</th><td>${fn:replace(savingsVO.sv_target, '다.', '다.<br/>')}</td></tr>
            			<tr><th>이자 형태</th><td>
 	           			<c:if test="${savingsVO.sv_interest_type eq 'simple'}">단리</c:if>
@@ -271,13 +292,32 @@
 	           				<c:if test="${savingsVO.sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${savingsVO.sv_interest_36} </th></tr></c:if>
 	           			</table>
 	           		</td></tr>
-	           		<tr><th>최대 납입금</th><td>
-	           		<c:if test="${savingsVO.sv_limit_max!=0}"><fmt:formatNumber value="${savingsVO.sv_limit_max}" pattern="#,###" /> 원</c:if>
-	           		<c:if test="${savingsVO.sv_limit_max==0}">최고 한도 없음</c:if>
+	           		<c:if test="${savingsVO.sv_type.equals('예금')}">
+	           			<tr><th>최소 납입금</th><td>
+	           		</c:if>
+	           		<c:if test="${savingsVO.sv_type.equals('적금')}">
+	           			<tr><th>월 최소 납입금</th><td>
+	           		</c:if>
+	           		
+	           		<c:if test="${savingsVO.sv_limit_min!=0}"><fmt:formatNumber value="${savingsVO.sv_limit_min}" pattern="#,###" /> 원</c:if>
+	           		<c:if test="${savingsVO.sv_limit_min==0}">최소 한도 없음</c:if>
            			</td></tr>
+           			
+           			<c:if test="${savingsVO.sv_type.equals('예금')}">
+	           			<tr><th>최대 납입금</th><td>
+	           		</c:if>
+	           		<c:if test="${savingsVO.sv_type.equals('적금')}">
+	           			<tr><th>월 최대 납입금</th><td>
+	           		</c:if>
+	           		
+	           		<c:if test="${savingsVO.sv_limit_max!=0}"><fmt:formatNumber value="${savingsVO.sv_limit_max}" pattern="#,###" /> 원</c:if>
+	           		<c:if test="${savingsVO.sv_limit_max==0}">최대 한도 없음</c:if>
+           			</td></tr>
+           			
            			<tr><th>납입 형태</th><td>
            				<c:if test="${savingsVO.sv_payment_type eq 'M'}">매월</c:if>
-           				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if></td></tr>
+           				<c:if test="${savingsVO.sv_payment_type eq 'D'}">매일</c:if>
+           				<c:if test="${savingsVO.sv_payment_type eq 'I'}">즉시</c:if></td></tr>
            		</table>
           	</div><hr style="background-color: 	#8FBC8F; " >
 		  </c:forEach>
@@ -399,6 +439,35 @@
 	
 	function nologin(){
 		location.href='http://172.21.200.26:8081/bank/inner'
+	}
+	
+	function OrderChange(){
+		var opt = document.getElementById("sortSelectCustom");
+		var optVal = opt.options[opt.selectedIndex].value;
+		//console.log(optVal);
+		console.log(window.location.href);
+		var location = window.location.href;
+		var go = "";
+		if(optVal.includes("name")){
+			if(window.location.href.indexOf("savingsR") > -1){
+				go ='savingsN';
+			}else if(window.location.href.indexOf("savingsdepositR") > -1){
+				go = 'savingsdepositN';
+			}else if(window.location.href.indexOf("savingsinstallmentR") > -1){
+				go = 'savingsinstallmentN';
+			}else{console.log("?");}
+		}else if(optVal.includes("recommend")){
+			if(window.location.href.indexOf("savingsN") > -1){
+				go ='savingsR';
+			}else if(window.location.href.indexOf("savingsdepositN") > -1){
+				go ='savingsdepositR';
+			}else if(window.location.href.indexOf("savingsinstallmentN") > -1){
+				go ='savingsinstallmentR';
+			}else{console.log("?");}
+		}
+		console.log(go);
+		//location.href='http://172.21.200.26:8081/bank/'+go;
+		window.location.replace('http://172.21.200.26:8081/bank/'+go);	
 	}
 	
 </script>

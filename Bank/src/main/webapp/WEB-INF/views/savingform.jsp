@@ -45,6 +45,8 @@
   window.onload = function(){
 	  let date = new Date();
 	  document.getElementById('used_regdate').value = date.toISOString().substring(0, 10);
+	  
+	  $("#termsID").hide();
   }
   
   function periodLoad(periodMonth){
@@ -55,13 +57,25 @@
 	  document.getElementById('used_maturity').value = date2.toISOString().substring(0, 10);
   }
   
+  function paymentChange(sv_payment_type){
+	  if (sv_payment_type.includes('M')){
+		  console.log(sv_payment_type);
+		  var amount = document.getElementById('used_payment_amount').value;
+		  var rate_month = $('input:radio[name=used_period]:checked').val(); // 체크된 값(checked value)
+		  document.getElementById('used_payment_amount_sum').value = amount * rate_month;
+	  }
+  }
+  
   </script>
 </head>
 <style>
-	th, td {
-  		text-align: center;
+	th {
+		text-align: center;
   		vertical-align : middle !important;
-	}  		
+	} 
+	td {
+		vertical-align : middle !important;
+	} 		
 	main{
     	margin-top: 100px;
     }	
@@ -169,15 +183,15 @@
 			<table class='table table-bordered'>
 			<!--<caption>송금 정보</caption>-->
 			<tr>
-				<th>상품명</th>
-				<td colspan='3'><input type='text' id='' name='' value='${OneP.get(0).sv_name} (${OneP.get(0).sv_seq})' class="form-control" readonly></td>
+				<th style='width:20%'>상품명</th>
+				<td colspan='3'>&nbsp;&nbsp; ${OneP.get(0).sv_name} (${OneP.get(0).sv_seq})</td>
 			</tr>
-			<tr><th>가입대상</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="1" readonly>${OneP.get(0).sv_target}</textarea></td></tr>
-			<tr><th>내용</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="5" readonly>${OneP.get(0).sv_contents}</textarea></td></tr>
+			<tr><th>가입대상</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="2" readonly>${OneP.get(0).sv_target}</textarea></td></tr>
+			<tr><th>내용</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="5" readonly>${fn:replace(OneP.get(0).sv_contents, '-', '&#10;-')}</textarea></td></tr>
 			<tr>
 				<th>금리</th>
 				<!-- <td colspan='3'><input type='text' id='' name='' value='연 ' class="form-control" readonly required></td> -->
-				<td colspan='3'>
+				<td colspan='3' style='text-align: center;'>
 						<!-- 기간별 금리표 삽입 -->
 						<br>
 	           			<table class='table table-bordered' style="width:50%" align='center'>
@@ -210,9 +224,31 @@
 				</td>
 			</tr>
 			<tr>
-				<th>납입금액<br>(단위 : 원)</th>
-				<td colspan='3'><input type='text' id='used_payment_amount' name='used_payment_amount' class="form-control" required /></td>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('M')}"><th>월 납입한도<br></th></c:if>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('D')}"><th>일 납입한도<br></th></c:if>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('I')}"><th>납입한도<br></th></c:if>
+				<td colspan='3' style='text-align: left;'>&nbsp;&nbsp;
+					<c:if test="${OneP.get(0).sv_limit_min==0}">최소한도 없음</c:if>
+					<c:if test="${OneP.get(0).sv_limit_min!=0}">최소 <fmt:formatNumber value="${OneP.get(0).sv_limit_min}" pattern="#,###" /> 원</c:if>
+					 /
+					<c:if test="${OneP.get(0).sv_limit_max==0}">최대한도 없음</c:if>
+					<c:if test="${OneP.get(0).sv_limit_max!=0}">최대 <fmt:formatNumber value="${OneP.get(0).sv_limit_max}" pattern="#,###" /> 원</c:if>
+				</td>
+				
 			</tr>
+			<tr>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('M')}"><th>월 납입금액<br>(단위 : 원)</th></c:if>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('D')}"><th>일 납입금액<br>(단위 : 원)</th></c:if>
+				<c:if test="${OneP.get(0).sv_payment_type.equals('I')}"><th>납입금액<br>(단위 : 원)</th></c:if>
+				
+				<td colspan='3'><input type='number' id='used_payment_amount' name='used_payment_amount' class="form-control" onchange="paymentChange('${OneP.get(0).sv_payment_type}')" min="${OneP.get(0).sv_limit_min}" required /></td>
+			</tr>
+			<c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
+			<tr>
+				<th>납부 총 금액<br>(단위 : 원)</th>
+				<td colspan='3'><input type='text' id='used_payment_amount_sum' name='' class="form-control" readonly /></td>
+			</tr>
+			</c:if>
 			<tr>
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
 				<th>납입일</th>
@@ -234,20 +270,43 @@
 				<th>납입일</th>
 				<td colspan='3'><input type='text' class='form-control' value='매일' readonly/>
 				<input type='hidden' id='used_payment_date' name='used_payment_date' value='D'>
+				</td>
 			  </c:if>
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('I')}">
 			    <th>납입일</th>
 				<td colspan='3'><input type='text' class='form-control' value='즉시' readonly/>
 				<input type='hidden' id='used_payment_date' name='used_payment_date' value='I'>
+				</td>
 			  </c:if>
 			</tr>
+		</table>
+		<br>
+		<table class='table table-bordered' >
 			<tr>
-				<td colspan='4'><input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
+				<td colspan='5' style='text-align: left; padding-left: 160px;padding-right: 100px;padding-top: 30px;padding-bottom: 50px;'><b>유의사항</b><br><br>
+				- 통장이 ‘전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법’에서 정의한 피해의심거래계좌 및 사기이용계좌로 이용될 경우<br>&nbsp;&nbsp;이체, 송금지연, 지급정지 등의 금융거래 제한조치를 할 수 있습니다.<br>
+				- 이 예금은 공동명의 및 양도, 질권설정을 할 수 없습니다.<br>
+				- 계약을 체결전에 상품설명서 및 약관을 읽어보시기 바랍니다.<br>
+				- 금융소비자보호법 제19조제1항에 따라 상품에 대하여 설명을 받으실 권리가있습니다.<br>
+				- 법령 및 내부통제기준에따라 작성된 자료입니다.<br>
+				</td>
+			</tr>
+		</table>
+		<table class='table table-bordered'>
+			<tr>
+				<td colspan='5' style='text-align: left; padding-left: 160px;padding-right: 100px;padding-top: 30px;padding-bottom: 50px;'><a href='#termsID' onclick='termsClick()'>약관 확인</a><br><br>
+					<div id='termsID'>
+					<input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
+					</div>
+				</td>
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan='4'>
 				<input type='hidden' id='used_service_seq' name='used_service_seq' value='${param.sv_seq}'>
 				<input type='hidden' id='used_usernum' name='used_usernum' value='${user_info.user_seq_no}'>
 				<input type='hidden' id='used_finnum' name='used_finnum'>
 			</tr>
-			<tr style=" text-align: right;">
+			<tr style="text-align: center;">
 				<td colspan='4'><button type='submit' class='btn' onclick='btnclick(${param.sv_seq})'>신청</button>
 			</tr>
 		</table>
@@ -278,7 +337,9 @@
   
   <script>
   
-  
+  function termsClick(){
+	  $("#termsID").show();
+  }
   
   
   function formatDate(){

@@ -31,6 +31,8 @@
   <!-- Template Main CSS File -->
   <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: Green - v4.7.0
   * Template URL: https://bootstrapmade.com/green-free-one-page-bootstrap-template/
@@ -44,6 +46,28 @@
   
 </head>
 <style>
+	.material-icons{
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px;
+		display: inline-block;
+		line-height: 1;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normalr;
+		white-space: nowrap;
+		direction: ltr;
+		
+		-webkit-font-smoothing: antialiased;
+		
+		text-rendering: optimizeLegibility;
+		
+		-moz-osx-font-smoothing: grayscale;
+		
+		font-feature-setings: 'liga';
+	}
+	
 	
 	.btn60{
     	color: white !important;
@@ -225,9 +249,11 @@
 		 <!--<div class="savingsCustom">-->
 		  <jsp:useBean id="now" class="java.util.Date" />
 		  <fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일 HH:mm:ss" var="today" />
-
+		  <div style="width:95%;">
 		  조회 시각 : ${today} <br>
 		  환율 고시 : ${fn:replace(exchangeList.get(0).get("날짜"),'\"','')}
+		  </div>
+		  <div style="width:5%;"><button class='btn'><i class="material-icons" onclick='f5Function()'>autorenew</i></button></div>
 		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
 		  	<table class="table table-striped table-bordered" style="table-layout:fixed">		  	
 		  		<tr >
@@ -290,7 +316,10 @@
 
   
 <script>
-	
+	function f5Function(){
+		console.log("새로고침 버튼 클릭");
+		location.href='/bank/exchanges';
+	}
 	
 	
 	

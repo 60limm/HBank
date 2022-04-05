@@ -19,8 +19,11 @@
 		WHERE user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
 	
-	<select id="savingslist" resultType="com.hb.domain.Savings">
-		SELECT * FROM tbl_savings
+	<select id="savingslistR" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings ORDER BY sv_interest_12 DESC 
+	</select>
+	<select id="savingslistN" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings ORDER BY sv_name 
 	</select>
 	
 	<select id="savingSelectOne" parameterType="com.hb.domain.Savings" resultType="com.hb.domain.Savings">
@@ -36,13 +39,25 @@
 		#{used_service_seq, jdbcType=NUMERIC}, #{used_payment_date}, #{used_payment_amount})
 	</insert>
 	
-	<select id="depositlist" resultType="com.hb.domain.Savings">
-		SELECT * FROM tbl_savings
+	<select id="depositlistR" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings 
 		WHERE sv_type = '예금'
+		ORDER BY sv_interest_12 DESC
 	</select>
-	<select id="installmentlist" resultType="com.hb.domain.Savings">
+	<select id="installmentlistR" resultType="com.hb.domain.Savings">
 		SELECT * FROM tbl_savings
 		WHERE sv_type = '적금'
+		ORDER BY sv_interest_12 DESC
+	</select>
+	<select id="depositlistN" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings 
+		WHERE sv_type = '예금'
+		ORDER BY sv_name
+	</select>
+	<select id="installmentlistN" resultType="com.hb.domain.Savings">
+		SELECT * FROM tbl_savings
+		WHERE sv_type = '적금'
+		ORDER BY sv_name
 	</select>
 	
 	<select id="savingStatus" parameterType="String" resultType="com.hb.domain.svJud">

@@ -9,7 +9,7 @@
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Green Bootstrap Template - Index</title>
+  <title>HBank</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -81,11 +81,35 @@
   		padding: 4px 1.4em 4px 0.8em;
   		margin: 0;
     }
+    
+    main{
+    	margin-top: 100px;
+    }
+    
+    .60cus{
+    	border-top-style: solid !important;
+    	border-right-style: solid !important;
+    	border-left-style: solid !important;
+    }
 </style>
 <body>
 <script>
 	window.onload = function(){
 		$(".infoDIV").hide();
+		
+		var location = window.location.href;
+		console.log(location);
+		
+		if(location.indexOf("savingsinstallment") > -1){
+			$("#a_all").css("color","black");
+			$("#a_dep").css("color","black");
+		}else if(location.indexOf("savingsdeposit") > -1){
+			$("#a_all").css("color","black");
+			$("#a_ins").css("color","black");
+		}else if(location.indexOf("savings") > -1){
+			$("#a_dep").css("color","black");
+			$("#a_ins").css("color","black");
+		}
 	}
 </script>
 	<!-- Vendor JS Files -->
@@ -120,11 +144,16 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
@@ -148,11 +177,16 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>
@@ -179,38 +213,59 @@
         </div>
       </div>
     </section><!-- End Breadcrumbs -->
+    
     <!-- ======= Featured Services Section ======= -->
-    <section id="featured-services" class="featured-services section-bg">
-      <div class="section-title">
+    <section id="featured-services" class="featured-services section-bg" >
+      <div class="section-title" >
       	  <br><br>
           <h2>금융상품</h2>
           <p>HBank의 추천 상품을 소개합니다<br>원하시는 상품을 찾아보세요</p><br>
       </div>
     </section>
-    <!-- End Featured Services Section -->
-    
-    <!-- ======= Featured Services Section ======= 
-    <section id="featured-services" class="featured-services section-bg">
+    <!-- ======= Featured Services Section ======= -->
+    <!-- <section id="featured-services" class="featured-services section-bg">
       <div class="container">
         <div class="row no-gutters">
-          <div class="col-lg-4 col-md-6" style="width:50%;">
+          <div class="col-md-6" style="width:50%;">
             <div class="icon-box">
-              <div class="icon"><i class="bi bi-laptop"></i></div>
-              <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>-->
+              <div class="icon"><span class="material-icons" style='width:95%; display:inline; vertical-align:middle;'>monetization_on</span></div>
+              <h4 class="title"><a href="/bank/savingsdeposit">예금</a></h4>>-->
               <!--<p class="description">일정 기간을 정해놓고 돈을 예치합니다</p>-->
-            <!--</div>
+           <!--  </div>
           </div>
-          <div class="col-lg-4 col-md-6" style="width:50%;">
+          <div class="col-md-6" style="width:50%;">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-briefcase"></i></div>
-              <h4 class="title"><a href="/bank/savingsinstallment">적금</a></h4>
+              <h4 class="title"><a href="/bank/savingsinstallment">적금</a></h4> -->
               <!-- <p class="description">정해진 기간동안 일정액을 매월/매일 예치합니다.</p>-->
-            <!--</div>
+            <!-- </div>
           </div>
-        </div>-->
-
+        </div>
       </div>
-    </section><!-- End Featured Services Section -->
+    </section>-->
+    <!-- 
+    <div class="row" style="padding-left: 150px;padding-right: 150px;">
+    	<div class='col-sm-1 60cus' style='border: 1px; color: grey;'>모든 상품 보기
+    	</div>
+    	<div class='col-sm-1 60cus' style='border: 0.5px solid;'>예금 상품
+    	</div>
+    	<div class='col-sm-1 60cus' style='border: 1px '>적금 상품
+    	</div>
+    </div> -->
+    <!-- End Featured Services Section -->
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center" style="margin-right:1050px;">
+          <h2></h2>
+          <ol>
+            <li><a id='a_all' href="/bank/savingsR">전체 상품</a></li>
+            <li><a id='a_dep' href="/bank/savingsdepositR">예금 상품</a></li>
+            <li><a id='a_ins' href="/bank/savingsinstallmentR">적금 상품</a></li>
+          </ol>
+        </div>
+      </div>
+    </section><!-- End Breadcrumbs -->
      <!-- ======= Breadcrumbs ======= -->
     <section class="breadcrumbs" style="background: #ffffff;">
       <div class="container">
@@ -218,7 +273,8 @@
         <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
           <h2>&nbsp;</h2><br>
           <ol style="font-size: 16px;">
-            <!-- <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange="OrderChange()"><option value="recommend">추천순</option><option value="name">이름순</option></select></li> -->
+            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange="OrderChange()"><option value="recommend">추천순</option><option value="name">이름순</option></select></li> 
+            <!-- <li>&nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange=""><option value="recommend">추천순</option></select></li>-->
           </ol>
         </div>
       </form>
@@ -322,30 +378,6 @@
           	</div><hr style="background-color: 	#8FBC8F; " >
 		  </c:forEach>
 		  
-		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
-            <span>01</span>
-            <h4>Lorem Ipsum</h4>
-            <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>03</span>
-            <h4> Ad ad velit qui</h4>
-            <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>04</span>
-            <h4>Repellendus molestiae</h4>
-            <p>Inventore quo sint a sint rerum. Distinctio blanditiis deserunt quod soluta quod nam mider lando casa</p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 content-item">
-            <span>05</span>
-            <h4>Sapiente Magnam</h4>
-            <p>Vitae dolorem in deleniti ipsum omnis tempore voluptatem. Qui possimus est repellendus est quibusdam</p>
-          </div>
-
 		 <!-- </div>-->
         </div>
 
@@ -449,20 +481,20 @@
 		var location = window.location.href;
 		var go = "";
 		if(optVal.includes("name")){
-			if(window.location.href.indexOf("savingsR") > -1){
-				go ='savingsN';
-			}else if(window.location.href.indexOf("savingsdepositR") > -1){
+			if(window.location.href.indexOf("savingsinstallment") > -1){
+				go ='savingsinstallmentN';
+			}else if(window.location.href.indexOf("savingsdeposit") > -1){
 				go = 'savingsdepositN';
-			}else if(window.location.href.indexOf("savingsinstallmentR") > -1){
-				go = 'savingsinstallmentN';
+			}else if(window.location.href.indexOf("savings") > -1){
+				go ='savingsN';
 			}else{console.log("?");}
 		}else if(optVal.includes("recommend")){
-			if(window.location.href.indexOf("savingsN") > -1){
-				go ='savingsR';
-			}else if(window.location.href.indexOf("savingsdepositN") > -1){
-				go ='savingsdepositR';
-			}else if(window.location.href.indexOf("savingsinstallmentN") > -1){
+			if(window.location.href.indexOf("savingsinstallment") > -1){
 				go ='savingsinstallmentR';
+			}else if(window.location.href.indexOf("savingsdeposit") > -1){
+				go ='savingsdepositR';
+			}else if(window.location.href.indexOf("savingsN") > -1){
+				go ='savingsR';
 			}else{console.log("?");}
 		}
 		console.log(go);

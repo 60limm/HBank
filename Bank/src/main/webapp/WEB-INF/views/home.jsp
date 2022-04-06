@@ -125,7 +125,7 @@
       
     </div>
   </header><!-- End Header -->
-
+      
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -180,16 +180,16 @@
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="icon-box">
-              <div class="icon"><i class="bi bi-briefcase"></i></div>
-              <h4 class="title"><a href="">상품 조회</a></h4>
-              <p class="description">예금, 적금, 대출, 카드 등 다양한 상품을 조회합니다</p>
+              <div class="icon"><i class="bi bi-calendar4-week"></i></div>
+              <h4 class="title"><a href="">계좌 조회</a></h4>
+              <p class="description">사용자가 가진 계좌 정보 및 잔액을 조회합니다</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="icon-box">
-              <div class="icon"><i class="bi bi-calendar4-week"></i></div>
-              <h4 class="title"><a href="">계좌 조회</a></h4>
-              <p class="description">사용자가 가진 계좌 정보 및 잔액을 조회합니다</p>
+              <div class="icon"><i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="">상품 조회</a></h4>
+              <p class="description">예금, 적금 등 다양한 상품을 조회합니다</p>
             </div>
           </div>
         </div>

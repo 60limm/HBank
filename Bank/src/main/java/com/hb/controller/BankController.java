@@ -290,12 +290,12 @@ public class BankController{
 			savingslist = mapper.depositlistR();
 		}else if(request.getServletPath().equals("/savingsinstallmentR")) {
 			savingslist = mapper.installmentlistR();
-//		}else if(request.getServletPath().equals("/savingsN")) {
-//			savingslist = mapper.savingslistN();
-//		}else if(request.getServletPath().equals("/savingsdepositN")) {
-//			savingslist = mapper.depositlistN();
-//		}else if(request.getServletPath().equals("/savingsinstallmentN")) {
-//			savingslist = mapper.installmentlistN();
+		}else if(request.getServletPath().equals("/savingsN")) {
+			savingslist = mapper.savingslistN();
+		}else if(request.getServletPath().equals("/savingsdepositN")) {
+			savingslist = mapper.depositlistN();
+		}else if(request.getServletPath().equals("/savingsinstallmentN")) {
+			savingslist = mapper.installmentlistN();
 		}
 			
 		model.addAttribute("savingslist",savingslist);

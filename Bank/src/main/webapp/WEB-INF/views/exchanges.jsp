@@ -129,10 +129,10 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
             </ul>
           </li>
@@ -162,10 +162,10 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
             </ul>
           </li>
@@ -249,11 +249,11 @@
 		 <!--<div class="savingsCustom">-->
 		  <jsp:useBean id="now" class="java.util.Date" />
 		  <fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일 HH:mm:ss" var="today" />
-		  <div style="width:95%;">
-		  조회 시각 : ${today} <br>
-		  환율 고시 : ${fn:replace(exchangeList.get(0).get("날짜"),'\"','')}
+		  <div style="width:90%;">
+		  <b>환율 고시 : ${fn:replace(exchangeList.get(0).get("날짜"),'\"','')}</b><br>
+		  조회 시각 : ${today}
 		  </div>
-		  <div style="width:5%;"><button class='btn'><i class="material-icons" onclick='f5Function()'>autorenew</i></button></div>
+		  <div style="width:10%;"><button class='btn'><i class="material-icons" onclick='f5Function()'>autorenew</i><br>새로고침</button></div>
 		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
 		  	<table class="table table-striped table-bordered" style="table-layout:fixed">		  	
 		  		<tr >
@@ -276,11 +276,7 @@
 		  		
 		  	</table>
           </div>
-		  <div class="col-lg-4 col-md-6 content-item" style="width:100%;">
-            <span>01</span>
-            <h4>Lorem Ipsum</h4>
-            <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
-          </div>
+		  
 		 <!-- </div>-->
         </div>
 

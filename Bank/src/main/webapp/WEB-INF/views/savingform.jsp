@@ -9,7 +9,7 @@
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Green Bootstrap Template - Index</title>
+  <title>HBank</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -46,7 +46,7 @@
 	  let date = new Date();
 	  document.getElementById('used_regdate').value = date.toISOString().substring(0, 10);
 	  
-	  $("#termsID").hide();
+	  //$("#termsID").hide();
   }
   
   function periodLoad(periodMonth){
@@ -114,11 +114,16 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/savingStatus">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/transactionlist">거래내역조회</a></li>
@@ -142,11 +147,16 @@
               <li><a href="/bank/account/delete">계좌 해지</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="/bank/savings"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/bank/savingsdeposit">예금</a></li>
-              <li><a href="/bank/savingsinstallment">적금</a></li>
+              <li><a href="/bank/savingsdepositR">예금</a></li>
+              <li><a href="/bank/savingsinstallmentR">적금</a></li>
               <li><a href="/bank/inner">가입상품보기</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/bank/exchanges"><span>외환</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/bank/exchanges">고시 환율</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/bank/inner">거래내역조회</a></li>
@@ -175,6 +185,16 @@
       </div>
     </section><!-- End Breadcrumbs -->
     
+    <!-- ======= Featured Services Section ======= -->
+    <section id="featured-services" class="featured-services section-bg">
+      <div class="section-title">
+      	  <br><br>
+          <h2>금융상품</h2>
+          <p>상품 가입을 위해<br>필요한 정보를 입력하세요</p><br>
+      </div>
+    </section>
+    <!-- End Featured Services Section -->
+    
     <!-- ======= About Us Section ======= -->
     <section id="about" class="about">
       <div class="container">
@@ -182,11 +202,14 @@
         <form id="savingform" action="savingform" method="POST">
 			<table class='table table-bordered'>
 			<!--<caption>송금 정보</caption>-->
-			<tr>
+			<tr height="60">
 				<th style='width:20%'>상품명</th>
 				<td colspan='3'>&nbsp;&nbsp; ${OneP.get(0).sv_name} (${OneP.get(0).sv_seq})</td>
 			</tr>
-			<tr><th>가입대상</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="2" readonly>${OneP.get(0).sv_target}</textarea></td></tr>
+			<tr height="60">
+				<th>가입대상</th>
+				<td colspan='3'>&nbsp;&nbsp; ${OneP.get(0).sv_target}</td>
+			</tr>
 			<tr><th>내용</th><td colspan='3'> <textarea name="opinion" class='form-control' cols="30"  rows="5" readonly>${fn:replace(OneP.get(0).sv_contents, '-', '&#10;-')}</textarea></td></tr>
 			<tr>
 				<th>금리</th>
@@ -202,14 +225,17 @@
 	           				<c:if test="${OneP.get(0).sv_interest_36!=0}"><tr align='center'><td style='width:30%'>36개월</td><th>${OneP.get(0).sv_interest_36} </th><td><input type="radio" name="used_period" value="36" onclick='periodLoad(36)' required /></td></tr></c:if>
 	           			</table></td>
 			</tr>
-			<tr>
+			<tr height="60">
 				<th>이자형태</th>
+				<!-- 
 				<td><input type='text'value='고정금리' class="form-control" readonly></td>
 				<td><input type='text'value='단리' class="form-control" readonly></td>
 				<td><input type='text'value='만기일시지급' class="form-control" readonly></td>
+				 -->
+				 <td colspan='3'>&nbsp;&nbsp;고정금리&nbsp;&nbsp;/&nbsp;&nbsp;단리&nbsp;&nbsp;/&nbsp;&nbsp;만기일시지급</td>
 			</tr>
-			<tr><th>가입기간</th><td colspan='3'> <input type='date' id='used_regdate' class='form-control' readonly required/>~<input type='date' id='used_maturity' class='form-control' readonly required/></td></tr>
-			<tr>
+			<tr style="text-align: center;"><th>가입기간</th><td colspan='3'><input type='date' id='used_regdate' class='form-control' readonly required/> ~ <input type='date' id='used_maturity' class='form-control' readonly required/></td></tr>
+			<tr height="60">
 				<th>연결 계좌</th>
 				<td colspan='3'>
 					<select class="form-control" id="selectAccount" required >
@@ -223,7 +249,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr>
+			<tr height="60">
 				<c:if test="${OneP.get(0).sv_payment_type.equals('M')}"><th>월 납입한도<br></th></c:if>
 				<c:if test="${OneP.get(0).sv_payment_type.equals('D')}"><th>일 납입한도<br></th></c:if>
 				<c:if test="${OneP.get(0).sv_payment_type.equals('I')}"><th>납입한도<br></th></c:if>
@@ -236,7 +262,7 @@
 				</td>
 				
 			</tr>
-			<tr>
+			<tr height="60">
 				<c:if test="${OneP.get(0).sv_payment_type.equals('M')}"><th>월 납입금액<br>(단위 : 원)</th></c:if>
 				<c:if test="${OneP.get(0).sv_payment_type.equals('D')}"><th>일 납입금액<br>(단위 : 원)</th></c:if>
 				<c:if test="${OneP.get(0).sv_payment_type.equals('I')}"><th>납입금액<br>(단위 : 원)</th></c:if>
@@ -244,12 +270,12 @@
 				<td colspan='3'><input type='number' id='used_payment_amount' name='used_payment_amount' class="form-control" onchange="paymentChange('${OneP.get(0).sv_payment_type}')" min="${OneP.get(0).sv_limit_min}" required /></td>
 			</tr>
 			<c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
-			<tr>
+			<tr height="60">
 				<th>납부 총 금액<br>(단위 : 원)</th>
 				<td colspan='3'><input type='text' id='used_payment_amount_sum' name='' class="form-control" readonly /></td>
 			</tr>
 			</c:if>
-			<tr>
+			<tr height="60">
 			  <c:if test="${OneP.get(0).sv_payment_type.equals('M')}">
 				<th>납입일</th>
 				<td><select class="form-control"><option>매월</option></select></td>
@@ -289,25 +315,32 @@
 				- 계약을 체결전에 상품설명서 및 약관을 읽어보시기 바랍니다.<br>
 				- 금융소비자보호법 제19조제1항에 따라 상품에 대하여 설명을 받으실 권리가있습니다.<br>
 				- 법령 및 내부통제기준에따라 작성된 자료입니다.<br>
+				- 예금자보호 여부 : 이 예금은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 은행에 있는 귀하의 모든 예금보호 대상 금융상품의 &nbsp;&nbsp;원금과 소정의 이자를 합하여 1인당 “최고 5천만원”이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다.<br>
 				</td>
+			</tr>
+			<tr style='text-align: center;'>
+				<td style="padding-bottom: 30px;"><br>해당사실을 인지하였음을 확인합니다.&nbsp;&nbsp;<br><br> <input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp; 확인</td>
 			</tr>
 		</table>
-		<table class='table table-bordered'>
+		<!--<table class='table table-bordered'>
 			<tr>
-				<td colspan='5' style='text-align: left; padding-left: 160px;padding-right: 100px;padding-top: 30px;padding-bottom: 50px;'><a href='#termsID' onclick='termsClick()'>약관 확인</a><br><br>
-					<div id='termsID'>
+				<td colspan='5' style='text-align: left; padding-left: 160px;padding-right: 100px;padding-top: 30px;padding-bottom: 50px;'><b>약관</b><br><br>
+					 <div id='termsID'>
 					<input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp;&nbsp; 약관동의
-					</div>
+					</div> 
 				</td>
 			</tr>
+			<tr><td colspan='5' style='text-align: center;'>
+					<input type='checkbox' class='btn' required>&nbsp;&nbsp;&nbsp; 약관동의
+			</td><tr>
+		</table>-->
+		<table class='table table-bordered'>
 			<tr style="text-align: center;">
 				<td colspan='4'>
 				<input type='hidden' id='used_service_seq' name='used_service_seq' value='${param.sv_seq}'>
 				<input type='hidden' id='used_usernum' name='used_usernum' value='${user_info.user_seq_no}'>
 				<input type='hidden' id='used_finnum' name='used_finnum'>
-			</tr>
-			<tr style="text-align: center;">
-				<td colspan='4'><button type='submit' class='btn' onclick='btnclick(${param.sv_seq})'>신청</button>
+				<button type='submit' class='btn' onclick='btnclick(${param.sv_seq})'><b>신청</b></button>
 			</tr>
 		</table>
 	</form>
@@ -337,9 +370,9 @@
   
   <script>
   
-  function termsClick(){
-	  $("#termsID").show();
-  }
+//  function termsClick(){
+//	  $("#termsID").show();
+//  }
   
   
   function formatDate(){

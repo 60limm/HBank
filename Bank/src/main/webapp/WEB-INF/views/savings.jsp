@@ -110,6 +110,12 @@
 			$("#a_dep").css("color","black");
 			$("#a_ins").css("color","black");
 		}
+		
+		
+		if(location.indexOf("N") > -1){
+			$("#sortSelectCustom").html("<option value='name'>이름순</option><option value='recommend'>추천순</option>");
+		}
+			
 	}
 </script>
 	<!-- Vendor JS Files -->
@@ -273,14 +279,13 @@
         <div class="d-flex justify-content-between align-items-center"  style="margin-right:100px;">
           <h2>&nbsp;</h2><br>
           <ol style="font-size: 16px;">
-            <li>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange="OrderChange()"><option value="recommend">추천순</option><option value="name">이름순</option></select></li> 
+            <li id='orderli'>정렬 : &nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange="OrderChange()"><option value="recommend">추천순</option><option value="name">이름순</option></select></li> 
             <!-- <li>&nbsp;&nbsp;&nbsp;<select id='sortSelectCustom' onchange=""><option value="recommend">추천순</option></select></li>-->
           </ol>
         </div>
       </form>
       </div>
     </section><!-- End Breadcrumbs -->
-    
     <!-- ======= Why Us Section ======= -->
     <section id="why-us" class="why-us">
       <div class="container">
@@ -414,6 +419,7 @@
   
 <script>
 	var btnstatus = 100;
+	
 	
 	function infobtn(idx){
 		

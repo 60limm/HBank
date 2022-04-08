@@ -189,7 +189,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-briefcase"></i></div>
               <h4 class="title"><a href="">상품 조회</a></h4>
-              <p class="description">예금, 적금 등 다양한 상품을 조회합니다</p>
+              <p class="description">예금, 적금 등 다양한 상품을 이용합니다</p>
             </div>
           </div>
         </div>
@@ -197,14 +197,14 @@
       </div>
     </section><!-- End Featured Services Section -->
 
-    <!-- ======= About Us Section ======= -->
+    <!-- ======= About Us Section =======
     <section id="about" class="about">
       <div class="container">
 
         <div class="section-title">
-          <h2>About HBank</h2>
+          <h2>About HBank</h2> -->
           <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
-        </div>
+         <!-- </div>
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2">
@@ -212,12 +212,8 @@
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
             <h3>고객을 생각하는 은행..</h3>
-            <!-- 
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            -->
+           
+
             <ul>
               <li><i class="bi bi-check-circled"></i> </li>
               <li><i class="bi bi-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
@@ -233,11 +229,11 @@
         </div>
 
       </div>
-    </section><!-- End About Us Section -->
+    </section>
 
-    </section><!-- End Our Clients Section -->
+    </section>--><!-- End Our Clients Section -->
 
-    <!-- ======= Services Section ======= -->
+    <!-- ======= Services Section ======= --><!-- 
     <section id="services" class="services">
       <div class="container">
 
@@ -327,7 +323,7 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section>--><!-- End Services Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

@@ -39,17 +39,17 @@
   ======================================================== -->
 </head>
 <style>
+
 	#loginFormTable{
 		margin-left: auto !important; 
 		margin-right: auto !important;
 	}
 	#loginForm{
-	align-items: center;
-    align-content: center;
+		align-items: center;
+    	align-content: center;
     }
-    main{
-    	margin-top: 100px !important;
-    }
+    
+    
 </style>
 <body>
 <script>
@@ -134,7 +134,7 @@ if (${tryTF!=null}){
     </div>
   </header><!-- End Header -->
 
-  <main id="main">
+  <main id="main" style="margin-top: 170px;">
   	<!-- ======= Breadcrumbs ======= -->
     <section class="breadcrumbs">
       <div class="container">

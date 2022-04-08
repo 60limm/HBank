@@ -61,6 +61,7 @@ public class exchangeAPI {
 				JsonList.add(res_list_one);
 			}
 			
+			br.close();
 			
 		}catch(Exception e) {e.printStackTrace();}
 		

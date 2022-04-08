@@ -89,6 +89,10 @@
         text-align: center !important;
         vertical-align : middle !important;
       }
+      
+      main{
+    	margin-top: 100px;
+    }
 
 </style>
 <body>
@@ -193,7 +197,7 @@
           <h2></h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Product</li>
+            <li>Exchanges</li>
           </ol>
         </div>
       </div>

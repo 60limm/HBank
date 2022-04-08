@@ -188,6 +188,7 @@
 				<th>만기 날짜 </th>
 				<th>납입 금액 </th>
 				<th>상태</th>
+				<th></th>
 			</tr>
 			
 			<c:forEach var="i" begin="0" end="${fn:length(MyP)-1}">
@@ -213,6 +214,7 @@
 					<c:if test="${MyP.get(i).sv_payment_type.equals('D')}"><td>일 ${MyP.get(i).used_payment_amount} 원</td></c:if>
 					<c:if test="${MyP.get(i).sv_payment_type.equals('I')}"><td>${MyP.get(i).used_payment_amount} 원</td></c:if>
 					<td>${MyP.get(i).used_status }</td>
+					<td><a href="#">정보수정</a></td>
 				</tr>
 			</c:forEach>
 			</table>

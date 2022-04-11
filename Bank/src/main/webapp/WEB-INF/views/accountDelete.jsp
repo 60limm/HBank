@@ -347,6 +347,10 @@ function selectAccountFn(){
 	
 	
 }
+function FnLogoutClick(){
+	alert("로그아웃 합니다");
+	location.href= 'http://172.21.200.26:8081/bank/logout'
+}
 </script>
 </body>
 

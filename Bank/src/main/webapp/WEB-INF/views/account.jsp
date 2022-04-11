@@ -205,8 +205,8 @@
 				<td><c:out value="${fn:replace(JsonList_final.get(i).get('account_alias'),'\"','')} "> </c:out></td>
 				<!--<td><c:out value="${fn:replace(JsonList_final.get(i).get('fintech_use_num'),'\"','')} "> </c:out></td>-->
 				<!--<td><button type="button" class="btn btn-link" id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>조회</button></td>-->
-				<td style="width: 216px;"><button class='btn btn60' id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>잔액조회</button></td>
-				<td style="width: 216px;"><button class='btn btn60' id="btnT${i}" onclick='FnUpdateBefore(${i})'>변경</button></td>
+				<td style="width: 216px;"><button class='btn btn60 btni' id="btn${i}" onclick='FnAccountClick(${JsonList_final.get(i).get('fintech_use_num')},${i})'>잔액조회</button></td>
+				<td style="width: 216px;"><button class='btn btn60 btnti' id="btnT${i}" onclick='FnUpdateBefore(${i})'>변경</button></td>
 			</tr>
 			<tr>
 				<td colspan='5' class='balanceTD' id='balanceTD${i}'><div class='balanceDIV' id='balanceDIV${i}'></div></td>
@@ -261,13 +261,59 @@
 
   
 <script>
+	var btnstatus = 100;
+	function FnUpdateBefore(i){
+		//변경 클릭 시
+		$(".balanceTD").hide();
+		$("#btn"+i).text('잔액조회');
+		
+		if (btnstatus==100){
+			$("#btnT"+i).text('취소');
+			$("#updateTR"+i).show();
+			btnstatus = i;
+			
+		} else if (btnstatus == i){
+			$("#btnT"+i).text('변경');
+			$("#updateTR"+i).hide();
+			btnstatus = 100;
+			
+		} else if (btnstatus != i){
+			$(".updateTR").hide();
+			$(".btnti").html('변경');
+			
+			$("#btnT"+i).html('취소');
+			$("#updateTR"+i).show();
+			btnstatus = i;
+		}
+		//$("#updateTR"+i).show();
+		$("#balanceTR"+i).css("background",'#FBFBFB');
+		
+		//$("#btn"+i).text('잔액조회');
+		//$("#btnT"+i).text('취소');
+	}
 	function FnAccountClick(fintech_use_num,i){
-		console.log(fintech_use_num);
+		//잔액조회 클릭 시
 		$(".updateTR").hide();
-		$("#balanceTD"+i).show();
-		$("#btn"+i).text('취소');
 		$("#btnT"+i).text('변경');
 		
+		if (btnstatus==100){
+			$("#btn"+i).text('취소');
+			$("#balanceTD"+i).show();
+			btnstatus = i;
+			
+		} else if (btnstatus == i){
+			$("#btn"+i).text('잔액조회');
+			$("#balanceTD"+i).hide();
+			btnstatus = 100;
+			
+		} else if (btnstatus != i){
+			$(".balanceTD").hide();
+			$(".btni").html('잔액조회');
+			
+			$("#btn"+i).html('취소');
+			$("#balanceTD"+i).show();
+			btnstatus = i;
+		}
 		
 		/* $("#balanceDIV"+i).css("background",'white'); */
 		$("#balanceTR"+i).css("background",'#FBFBFB');
@@ -312,15 +358,7 @@
 		})
 		
 	}
-	function FnUpdateBefore(i){
-		//변경 클릭 시
-		$(".balanceTD").hide();
-		$("#updateTR"+i).show();
-		$("#balanceTR"+i).css("background",'#FBFBFB');
-		
-		$("#btn"+i).text('잔액조회');
-		$("#btnT"+i).text('취소');
-	}
+	
 	
 	
 	function FnUpdate(fintech_use_num, token){
@@ -331,6 +369,10 @@
 		};
 		
 		//location.href= 'http://172.21.200.26:8081/bank/transfer?fintech_use_num='+fintech_use_num+"&account_num_masked="+account_num_masked;
+	}
+	function FnLogoutClick(){
+		alert("로그아웃 합니다");
+		location.href= 'http://172.21.200.26:8081/bank/logout'
 	}
 </script>
 </body>

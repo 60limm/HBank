@@ -201,7 +201,7 @@
         			<c:when test="${rsp_code eq 'A0000'}">
         				<h5><b>이체에 성공하였습니다</b></h5>
         				<a href='/bank/homeTransfer'>다른 이체 하기</a><br>
-        				<a href='#'>거래내역 보러가기</a><br>
+        				<a href='/bank/transactionlist'>거래내역 보러가기</a><br>
         			</c:when>
         			<c:otherwise>
         				<h5><b>이체에 실패하였습니다</b></h5>

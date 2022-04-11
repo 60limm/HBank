@@ -188,7 +188,8 @@
 			<table style="margin:auto;">
 			
 			<tr>
-			<td><input type='date' value='2022-02-11' id='from_date' class='form-control'></td>
+			<!-- <td><input type='date' value='2022-02-11' id='from_date' class='form-control'></td> -->
+			<td><input type='date' id='from_date' class='form-control'></td>
 			<td>~</td>
 			<td><input type='date' id='to_date' class='form-control'></td>
 			<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;계좌 :&nbsp;&nbsp; </th>

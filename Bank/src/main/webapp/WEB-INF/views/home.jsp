@@ -100,7 +100,7 @@
               <li><a href="/bank/inner">계좌정보 조회</a></li>
               <li><a href="/bank/inner">계좌정보 변경</a></li>
               <li><a href="/bank/inner">잔액 조회</a></li>
-              <li><a href="/bank/account/delete">계좌 해지</a></li>
+              <li><a href="/bank/inner">계좌 해지</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="/bank/savingsR"><span>금융상품</span> <i class="bi bi-chevron-down"></i></a>
